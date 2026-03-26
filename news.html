@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Updates - Nafie Sylejmani</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.jpeg" alt="Logo">
+            </a>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+        </ul>
+    </nav>
+
+    <!-- NEWS SECTION -->
+    <section class="news-section">
+        <div class="news-header">
+            <h1>Latest Updates</h1>
+            <p>Stay informed about workshops, events, and tips</p>
+        </div>
+
+        <!-- OPTIONAL: Admin Post Form -->
+        <div class="post-form">
+            <h2>Create a New Post</h2>
+            <input type="text" placeholder="Post title" id="post-title">
+            <textarea placeholder="Write your news here..." id="post-content"></textarea>
+            <input type="file" id="post-image">
+            <button id="post-submit">Post</button>
+        </div>
+
+        <!-- POSTS LIST -->
+        <div class="posts">
+            <!-- Example post -->
+            <div class="post-card">
+                <h3>Online Workshop on Stress Management</h3>
+                <p>Join our online session this Friday to learn techniques for stress relief.</p>
+                <img src="images/workshop.jpg" alt="Workshop Image">
+                
+                <!-- Comments -->
+                <div class="comments">
+                    <p><strong>Ana:</strong> Can't wait for this!</p>
+                    <p><strong>John:</strong> Will this be recorded?</p>
+                </div>
+
+                <!-- Add Comment Form -->
+                <input type="text" placeholder="Write a comment" class="comment-input">
+                <button class="comment-btn">Comment</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Psychology Clinic | All rights reserved</p>
+    </footer>
+
+</body>
+</html>
