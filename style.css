@@ -1,0 +1,291 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px; /* heqim padding vertical */
+    height: 70px; /* FIX height */
+    background-color: #6fcf97;
+    color: white;
+    overflow: hidden;
+}
+
+/* NAVBAR LINKS CLEAN */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: white;
+    opacity: 0.8; /* efekt i lehtë */
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 70px; /* ma e madhe se navbar */
+    width: auto;
+    object-fit: contain;
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+.logo span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: #f5faff;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.hero button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #6fcf97; /* njejte si navbar */
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.hero button:hover {
+    background-color: #57b87e; /* pak ma e errët */
+}
+
+/* SERVICES */
+.services {
+    padding: 50px;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* ABOUT PAGE */
+.about {
+    padding: 50px;
+    text-align: center;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.about-image img {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.about-text {
+    max-width: 500px;
+    text-align: left;
+}
+
+.about-text h2 {
+    margin-bottom: 10px;
+}
+
+.about-text h3 {
+    margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+}
+
+/* SERVICES PAGE */
+.services-page {
+    padding: 50px;
+    text-align: center;
+    background-color: #f5faff;
+}
+
+.services-page h1 {
+    font-size: 36px;
+}
+
+.subtitle {
+    margin-top: 10px;
+    color: #555;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* BOOKING PAGE */
+.booking {
+    padding: 50px;
+    text-align: center;
+    background-color: #f5faff;
+}
+
+.booking-form {
+    max-width: 500px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.booking-form input,
+.booking-form textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.booking-form button {
+    padding: 10px;
+    border: none;
+    background-color: #0a3d62;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.booking-form button:hover {
+    background-color: #074173;
+}
+/* CONTACT PAGE */
+.contact {
+    padding: 50px;
+    text-align: center;
+    background-color: #f5faff;
+}
+
+.contact-form {
+    max-width: 500px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.contact-form button {
+    padding: 10px;
+    border: none;
+    background-color: #0a3d62;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #074173;
+}
+
+footer {
+    background-color: #6fcf97;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: auto; /* KY E SHTYN POSHT */
+}
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
