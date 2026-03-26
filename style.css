@@ -15,7 +15,6 @@ nav {
     height: 70px; /* FIX height */
     background-color: #6fcf97;
     color: white;
-    overflow: hidden;
     position: sticky;
     top: 0;
     z-index: 1000;
