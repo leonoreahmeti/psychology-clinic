@@ -19,11 +19,18 @@ nav {
 }
 
 /* NAVBAR LINKS CLEAN */
+ul {
+    display: block;
+
+}
+
+
 nav ul {
     display: flex;
     list-style: none;
     gap: 25px;
 }
+
 
 nav ul li a {
     color: white;
@@ -272,7 +279,7 @@ nav ul li a:hover {
 .contact-form button {
     padding: 10px;
     border: none;
-    background-color: #0a3d62;
+    background-color:#6fbf8f;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -297,4 +304,101 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+}
+
+
+.contact {
+    padding: 60px 20px;
+    text-align: center;
+    background: #f6faf7;
+}
+
+.contact h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 40px;
+}
+
+/* Layout */
+.contact-wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Contact Info */
+.contact-info {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.contact-info h2 {
+    margin-bottom: 20px;
+    color: #6fbf8f;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.info-item i {
+    color: #6fbf8f;
+    font-size: 18px;
+}
+
+.info-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.info-item a:hover {
+    color:#6fbf8f;
+}
+
+/* Form */
+.contact-form {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Green button (no blue) */
+.contact-form button {
+    width: 100%;
+    padding: 12px;
+    background: #6fbf8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: #5aa87a;
 }
