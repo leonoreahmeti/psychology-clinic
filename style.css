@@ -555,3 +555,155 @@ body {
         align-items: center;
     }
 }
+
+
+/* ================= NEWS PAGE ================= */
+.news-section {
+    padding: 60px 20px;
+    background-color: #f9fcfb;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.news-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.news-header h1 {
+    font-size: 36px;
+    color: #2f3e46;
+}
+
+.news-header p {
+    color: #777;
+    font-size: 18px;
+}
+
+/* POST FORM */
+.post-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    margin-bottom: 50px;
+}
+
+.post-form h2 {
+    margin-bottom: 20px;
+    color: #6fcf97;
+}
+
+.post-form input[type="text"],
+.post-form textarea,
+.post-form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.post-form button {
+    background-color: #6fcf97;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.post-form button:hover {
+    background-color: #57b87e;
+}
+
+/* POSTS LIST */
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* SINGLE POST CARD */
+.post-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.post-card h3 {
+    color: #2f3e46;
+    margin-bottom: 10px;
+}
+
+.post-card p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.post-card img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* COMMENTS */
+.comments {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.comments p {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.comment-input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.comment-btn {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+    background-color: #6fcf97;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.comment-btn:hover {
+    background-color: #57b87e;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .post-form, .post-card {
+        padding: 20px;
+    }
+
+    .comment-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .comment-btn {
+        width: 100%;
+        margin-left: 0;
+    }
+}
