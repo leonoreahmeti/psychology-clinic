@@ -119,39 +119,37 @@ nav ul li a:hover {
 
 .about-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap; /* e bën responsive ma mirë */
+    gap: 50px; /* hapësirë midis fotos dhe tekstit */
+    margin-top: 40px;
+    flex-wrap: wrap; /* për responsive */
 }
+
 
 .about-image img {
     width: 300px;
     height: 300px;
-    object-fit: cover; /* mos u shtrembëro foto */
-    border-radius: 50%; /* e bën rreth (PRO look) */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 50%; /* foto rrethore */
+    object-fit: cover;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
 }
 .about-image img:hover {
     transform: scale(1.05);
-    transition: 0.3s;
 }
 
-.about-text p {
+.about-text {
+    max-width: 600px;
     line-height: 1.6;
-    color: #444;
+    text-align: left;
 }
 
-.about-text ul {
-    margin-top: 10px;
-    padding-left: 20px;
+.about-text {
+    max-width: 600px;
+    line-height: 1.6;
+    text-align: left;
 }
-
-.about-text li {
-    margin-bottom: 5px;
-}
-
 
 @media (max-width: 768px) {
     .about-container {
@@ -297,4 +295,38 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+}
+/* BUTTON BOOKING */
+.book-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #6fcf97;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+.book-btn:hover {
+    background-color: #57b87e;
+}
+
+/* RESPONSIVE FOR MOBILE */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    .about-image img {
+        width: 250px;
+        height: 250px;
+    }
 }
