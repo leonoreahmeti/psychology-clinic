@@ -305,41 +305,56 @@ nav ul li a:hover {
 }
 /* BOOKING PAGE */
 .booking {
-    padding: 50px;
+    padding: 80px 20px;
     text-align: center;
-    background-color: #f5faff;
+    background-color:#f3faf6;
 }
 
 .booking-form {
     max-width: 500px;
-    margin: 30px auto;
+    margin: 40px auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
     text-align: left;
+     background: white;              /* NEW */
+    padding: 35px;                  /* NEW */
+    border-radius: 15px;            /* NEW */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* NEW */
+
 }
 
 .booking-form input,
 .booking-form textarea {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
     font-size: 14px;
+    transition: 0.3s;
 }
 
+/* FOCUS EFFECT */
+.booking-form input:focus,
+.booking-form textarea:focus {
+    border-color: #6fbf8f;
+    outline: none;
+    box-shadow: 0 0 5px rgba(111, 191, 143, 0.3);
+}
+
+
 .booking-form button {
-    padding: 10px;
+    padding: 12px;
     border: none;
-    background-color: #0a3d62;
+    background-color: #6fbf8f;
     color: white;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 16px;
     transition: 0.3s;
 }
 
 .booking-form button:hover {
-    background-color: #074173;
+    background-color: #5aa87a;
 }
 /* CONTACT PAGE */
 .contact {
