@@ -73,8 +73,12 @@ nav ul li a:hover {
 /* HERO */
 .hero {
     text-align: center;
-    padding: 100px 20px;
-    background-color: #f5faff;
+    padding: 120px 20px;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('images/hero.jpg'); /* vendos foton tane */
+    background-size: cover;
+    background-position: center;
+    color: white;
 }
 
 .hero h1 {
