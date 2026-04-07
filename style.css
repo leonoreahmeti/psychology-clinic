@@ -1,4 +1,4 @@
-/* RESET */
+/* index */
 * {
     margin: 0;
     padding: 0;
@@ -103,6 +103,84 @@ nav ul li a:hover {
 }
 .hero button:hover {
     background-color: #57b87e; /* pak ma e errët */
+}
+
+/* ================= NEXT-LEVEL PROFESSIONAL SERVICES SLIDER ================= */
+.services-slider {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f5faff;
+    position: relative;
+}
+
+.services-slider h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #2f3e46;
+}
+
+.slider-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slider-card {
+    background: white;
+    width: 250px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+    margin: 0 -80px; /* overlap për efekt “partial view” */
+    transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+    z-index: 1;
+}
+
+.slider-card.blur-left,
+.slider-card.blur-right {
+    transform: scale(0.85);
+    opacity: 0.5;
+    filter: blur(3px);
+    z-index: 0;
+}
+
+.slider-card.active {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: blur(0);
+    z-index: 2;
+}
+
+.slider-nav {
+    margin-top: 30px;
+}
+
+.slider-nav button {
+    background-color: #6fcf97;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.slider-nav button:hover {
+    background-color: #57b87e;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .slider-card {
+        width: 200px;
+        margin: 0 -50px;
+    }
 }
 
 /* SERVICES */
