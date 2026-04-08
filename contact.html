@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Nafie Sylejmani</title>
     <link rel="stylesheet" href="style.css">
@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav>
     <div class="logo">
         <a href="index.html">
@@ -29,16 +28,20 @@
     </ul>
 </nav>
 
-<!-- CONTACT SECTION -->
 <section class="contact">
     <h1>Contact Us</h1>
-    <p class="subtitle">Get in touch or follow on social media</p>
+    <p class="subtitle">Feel free to reach out or connect on social media</p>
 
-    <div class="contact-wrapper">
+   <div class="contact-container">
 
-        <!-- LEFT: SOCIAL INFO -->
-        <div class="contact-info">
+    <div class="contact-card">
+
+        <!-- LEFT SIDE -->
+        <div class="contact-left">
             <h2>Contact Details</h2>
+            <p class="contact-text">
+                Feel free to reach out for appointments, questions, or more information.
+            </p>
 
             <div class="info-item">
                 <i class="fa-solid fa-phone"></i>
@@ -47,7 +50,7 @@
 
             <div class="info-item">
                 <i class="fa-solid fa-envelope"></i>
-                <a href="mailto:n-sylejmani@hotmail.co">n-sylejmani@hotmail.com</a>
+                <a href="mailto:nsylejmani@hotmail.com">nsylejmani@hotmail.com</a>
             </div>
 
             <div class="info-item">
@@ -66,26 +69,51 @@
             </div>
         </div>
 
-        <!-- RIGHT: FORM -->
+        <!-- RIGHT SIDE -->
+        <div class="contact-right-box">
+            <h3>Available for You</h3>
+
+            <div class="support-item"><span class="check">✔</span> Online sessions available</div>
+            <div class="support-item"><span class="check">✔</span> Response within 24 hours</div>
+            <div class="support-item"><span class="check">✔</span> Private & confidential</div>
+        </div>
+
+    </div>
+
+</div> 
+</section>
+
+<!-- Floating Chat Button -->
+<button class="chat-btn" id="openModal">
+    <i class="fa-solid fa-comment-dots"></i>
+</button>
+
+<!-- Modal -->
+<div class="contact-modal" id="contactModal">
+    <div class="modal-box">
+        <button class="close-btn" id="closeModal">&times;</button>
+
+        <h2>Send a Message</h2>
+
         <form class="contact-form">
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter your name" required>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
 
-            <label>Email</label>
-            <input type="email" placeholder="Enter your email" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
 
-            <label>Message</label>
-            <textarea rows="6" placeholder="Write your message..." required></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" rows="6" placeholder="Write your message..." required></textarea>
 
             <button type="submit">Send Message</button>
         </form>
-
     </div>
-</section>
+</div>
 
 <footer>
     <p>© 2026 Psychology Clinic | All rights reserved</p>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
