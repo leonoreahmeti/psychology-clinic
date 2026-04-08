@@ -123,6 +123,14 @@ function nextStep(step) {
             return; // ndalon nese klikon cancel
         }
     }
+    window.addEventListener("DOMContentLoaded", () => {
+    if(localStorage.getItem("termsAccepted") === "true") {
+        const checkbox = document.getElementById("terms");
+        if(checkbox) {
+            checkbox.checked = true;
+        }
+    }
+});
 
     // CHANGE STEP
     document.getElementById('step' + step).classList.remove('active');
