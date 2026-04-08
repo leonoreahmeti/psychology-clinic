@@ -964,3 +964,44 @@ body {
         margin-left: 0;
     }
 }
+
+/* TERMS PAGE */
+.terms-page {
+    padding: 60px 20px;
+    background: #f5faff;
+    text-align: center;
+}
+
+.terms-box {
+    max-width: 700px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.terms-box h3 {
+    margin-top: 20px;
+    color: #2f3e46;
+}
+
+.terms-box p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.terms-box button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    background: #6fcf97;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.terms-box button:hover {
+    background: #57b87e;
+}
