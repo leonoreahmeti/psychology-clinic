@@ -63,12 +63,12 @@ setInterval(() => {
 
 updateSlider();
 
-// ---------------- BOOKING + CALENDAR ----------------
+// ---------------- BOOKING + VISUAL CALENDAR ----------------
 const calendarEl = document.getElementById('calendar');
 const timeListEl = document.getElementById('time-list');
 
-const bookedDates = ['2026-04-09', '2026-04-15']; // datat e zëna
-const allTimes = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'];
+const bookedDates = ['2026-04-09', '2026-04-15'];
+const allTimes = ['14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
 
 let selectedDate = null;
 let selectedTime = null;
@@ -80,30 +80,55 @@ function generateCalendar() {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     calendarEl.innerHTML = '';
+    const monthName = now.toLocaleString('default', { month: 'long' });
+    const title = document.createElement('h3');
+    title.textContent = `${monthName} ${year}`;
+    title.style.textAlign = 'center';
+    calendarEl.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.classList.add('calendar-grid');
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
+    grid.style.gap = '5px';
+    calendarEl.appendChild(grid);
 
     for(let day = 1; day <= daysInMonth; day++){
         const dateStr = `${year}-${(month + 1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
         const dayEl = document.createElement('button');
         dayEl.textContent = day;
+        dayEl.style.padding = '10px';
+        dayEl.style.border = '1px solid #ccc';
+        dayEl.style.borderRadius = '5px';
+        dayEl.style.cursor = 'pointer';
 
         if(bookedDates.includes(dateStr)){
             dayEl.disabled = true;
-            dayEl.style.opacity = '0.4';
+            dayEl.style.background = '#f8d7da';
+            dayEl.style.color = '#721c24';
+            dayEl.style.cursor = 'not-allowed';
         } else {
-            dayEl.addEventListener('click', () => selectDate(dateStr));
+            dayEl.style.background = '#d4edda';
+            dayEl.style.color = '#155724';
+            dayEl.addEventListener('click', () => selectDate(dateStr, dayEl));
         }
 
-        calendarEl.appendChild(dayEl);
+        grid.appendChild(dayEl);
     }
 }
 
-function selectDate(dateStr){
+function selectDate(dateStr, dayEl){
     selectedDate = dateStr;
+
+    // Highlight selected day
+    calendarEl.querySelectorAll('button').forEach(btn => btn.style.outline = 'none');
+    dayEl.style.outline = '3px solid #007BFF';
+
     renderTimes();
 }
 
 function renderTimes(){
-    timeListEl.innerHTML = '';
+    timeListEl.innerHTML = '<h3>Available Times</h3>';
     allTimes.forEach(time => {
         const li = document.createElement('li');
         const radio = document.createElement('input');
@@ -116,7 +141,6 @@ function renderTimes(){
         const label = document.createElement('label');
         label.htmlFor = radio.id;
         label.textContent = time;
-
         li.appendChild(radio);
         li.appendChild(label);
         timeListEl.appendChild(li);
@@ -131,10 +155,12 @@ function nextStep(step){
 
         document.getElementById('sum-date').innerText = selectedDate;
         document.getElementById('sum-time').innerText = selectedTime;
+        document.getElementById('sum-service').innerText = 'Psychological Session';
+        document.getElementById('sum-therapist').innerText = 'Nafie Sylejmani';
+        document.getElementById('sum-duration').innerText = '50 minutes';
 
         showStep(2);
-    }
-    else if(step === 2){
+    } else if(step === 2){
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const terms = document.getElementById('terms').checked;
@@ -153,8 +179,7 @@ function nextStep(step){
 function showStep(step){
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
     document.getElementById('step'+step).classList.add('active');
-
-    document.getElementById('payment-section').style.display = (step === 3) ? 'block' : 'none';
+    document.getElementById('payment-section').style.display = (step===3)? 'block':'none';
 }
 
 generateCalendar();
