@@ -65,3 +65,66 @@ setInterval(() => {
 }, 4000);
 
 updateSlider();
+
+// Booking page
+function nextStep(step) {
+
+    // STEP 1 VALIDATION
+    if(step === 1) {
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+
+        if(!date) {
+            alert("Please select a date");
+            return;
+        }
+
+        if(!time) {
+            alert("Please select a time");
+            return;
+        }
+
+        // vendos ne summary
+        document.getElementById('sum-date').innerText = date;
+        document.getElementById('sum-time').innerText = time;
+    }
+
+    // STEP 2 VALIDATION
+    if(step === 2) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const terms = document.getElementById('terms').checked;
+
+        if(!name) {
+            alert("Please enter your name");
+            return;
+        }
+
+        if(!email) {
+            alert("Please enter your email");
+            return;
+        }
+
+        // simple email check
+        if(!email.includes("@") || !email.includes(".")) {
+            alert("Enter a valid email");
+            return;
+        }
+
+        if(!terms) {
+            alert("You must accept the Terms & Conditions");
+            return;
+        }
+
+        // EMAIL CONFIRMATION POPUP
+        const confirmEmail = confirm(`Is this email correct?\n\n${email}`);
+
+        if(!confirmEmail) {
+            return; // ndalon nese klikon cancel
+        }
+    }
+
+    // CHANGE STEP
+    document.getElementById('step' + step).classList.remove('active');
+    document.getElementById('step' + (step + 1)).classList.add('active');
+}
