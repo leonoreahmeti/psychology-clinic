@@ -32,10 +32,11 @@
                 <input type="text" id="name" placeholder="Your name">
                 <input type="email" id="email" placeholder="Your email">
 
-                <label class="terms">
-                    <input type="checkbox" id="terms">
-                    I agree to the <a href="terms.html">Terms & Conditions</a>
-                </label>
+                   <label class="terms">
+    <input type="checkbox" id="terms">
+    I agree to the <span class="open-terms">Terms & Conditions</span>
+            </label>
+              
 
                 <button onclick="nextStep(2)">Next</button>
             </div>
@@ -81,3 +82,25 @@
 
     </div>
 </section>
+<!-- TERMS POPUP -->
+<div id="termsPopup" class="terms-popup">
+
+    <div class="terms-content">
+
+        <h2>Terms & Conditions</h2>
+
+        <div class="terms-scroll" id="termsScroll">
+            <p>By booking a session, you agree that this platform only connects you with a licensed psychologist.</p>
+            <p>Sessions are not emergency services.</p>
+            <p>All payments are non-refundable unless the therapist does not attend.</p>
+            <p>Your data is kept confidential.</p>
+            <p>You must be 18+ to use this service.</p>
+            <p>More legal terms apply...</p>
+            <p style="margin-top:20px;">(Scroll to bottom to accept)</p>
+        </div>
+
+        <button id="acceptTerms" disabled>I Agree</button>
+
+    </div>
+
+</div>
