@@ -1,3 +1,4 @@
+// ---------------- SLIDER SERVICES ----------------
 const cards = document.querySelectorAll('.slider-card');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
@@ -16,8 +17,6 @@ function updateSlider() {
             card.classList.add('active');
             card.style.zIndex = 2;
             card.style.transform = 'scale(1.1)';
-            card.style.filter = 'none';
-            card.style.opacity = 1;
         } else if(index === (currentIndex - 1 + cards.length) % cards.length) {
             card.classList.add('blur-left');
             card.style.transform = 'scale(0.85)';
@@ -39,12 +38,10 @@ function updateSlider() {
     });
 }
 
-// Kliko për të vendosur kartën aktive dhe për të hapur services.html
 cards.forEach(card => {
     card.addEventListener('click', () => {
         currentIndex = parseInt(card.dataset.index);
         updateSlider();
-        // Hap faqen e shërbimeve
         window.location.href = 'services.html';
     });
 });
@@ -66,92 +63,133 @@ setInterval(() => {
 
 updateSlider();
 
-// Booking page
-function nextStep(step) {
+// ---------------- BOOKING + CALENDAR ----------------
+const calendarEl = document.getElementById('calendar');
+const timeListEl = document.getElementById('time-list');
 
-    if(step === 1) {
-        const date = document.getElementById('date').value;
-        const time = document.getElementById('time').value;
+const bookedDates = ['2026-04-09', '2026-04-15']; // datat e zëna
+const allTimes = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'];
 
-        if(!date) {
-            alert("Select a date");
-            return;
+let selectedDate = null;
+let selectedTime = null;
+
+function generateCalendar() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    calendarEl.innerHTML = '';
+
+    for(let day = 1; day <= daysInMonth; day++){
+        const dateStr = `${year}-${(month + 1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+        const dayEl = document.createElement('button');
+        dayEl.textContent = day;
+
+        if(bookedDates.includes(dateStr)){
+            dayEl.disabled = true;
+            dayEl.style.opacity = '0.4';
+        } else {
+            dayEl.addEventListener('click', () => selectDate(dateStr));
         }
 
-        if(!time) {
-            alert("Select a time");
-            return;
-        }
-
-        document.getElementById('sum-date').innerText = date;
-        document.getElementById('sum-time').innerText = time;
+        calendarEl.appendChild(dayEl);
     }
+}
 
-    if(step === 2) {
+function selectDate(dateStr){
+    selectedDate = dateStr;
+    renderTimes();
+}
+
+function renderTimes(){
+    timeListEl.innerHTML = '';
+    allTimes.forEach(time => {
+        const li = document.createElement('li');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'time';
+        radio.value = time;
+        radio.id = `time-${time.replace(':','')}`;
+        radio.addEventListener('change', () => selectedTime = time);
+
+        const label = document.createElement('label');
+        label.htmlFor = radio.id;
+        label.textContent = time;
+
+        li.appendChild(radio);
+        li.appendChild(label);
+        timeListEl.appendChild(li);
+    });
+}
+
+// ---------------- NEXT STEP ----------------
+function nextStep(step){
+    if(step === 1){
+        if(!selectedDate){ alert('Please select a date'); return; }
+        if(!selectedTime){ alert('Please select a time'); return; }
+
+        document.getElementById('sum-date').innerText = selectedDate;
+        document.getElementById('sum-time').innerText = selectedTime;
+
+        showStep(2);
+    }
+    else if(step === 2){
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-        const terms = document.getElementById('terms');
+        const terms = document.getElementById('terms').checked;
 
-        if(!name) {
-            alert("Enter your name");
-            return;
-        }
+        if(!name){ alert('Enter your name'); return; }
+        if(!email || !email.includes('@')){ alert('Enter valid email'); return; }
+        if(!terms){ alert('You must accept Terms'); return; }
 
-        if(!email || !email.includes("@")) {
-            alert("Enter valid email");
-            return;
-        }
+        document.getElementById('sum-name').innerText = name;
+        document.getElementById('sum-email').innerText = email;
 
-        if(!terms.checked) {
-            alert("You must accept Terms");
-            return;
-        }
-
-        const confirmEmail = confirm(`Confirm email:\n${email}`);
-        if(!confirmEmail) return;
+        showStep(3);
     }
-
-    document.getElementById('step' + step).classList.remove('active');
-    document.getElementById('step' + (step + 1)).classList.add('active');
 }
+
+function showStep(step){
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step'+step).classList.add('active');
+
+    document.getElementById('payment-section').style.display = (step === 3) ? 'block' : 'none';
+}
+
+generateCalendar();
+
+// ---------------- TERMS POPUP ----------------
 const termsCheckbox = document.getElementById("terms");
 const popup = document.getElementById("termsPopup");
 const acceptBtn = document.getElementById("acceptTerms");
 const scrollBox = document.getElementById("termsScroll");
 
-// klik checkbox → hap popup
-termsCheckbox.addEventListener("click", function(e) {
-    if(!this.checked) {
+termsCheckbox.addEventListener("click", function(e){
+    if(!this.checked){
         e.preventDefault();
         popup.style.display = "flex";
     }
 });
 
-// enable button kur scroll në fund
 scrollBox.addEventListener("scroll", () => {
-    if(scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
+    if(scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight){
         acceptBtn.disabled = false;
     }
 });
 
-// klik agree
 acceptBtn.addEventListener("click", () => {
     termsCheckbox.checked = true;
     popup.style.display = "none";
-
     localStorage.setItem("termsAccepted", "true");
 });
 
-// auto-check nëse është pranu ma herët
 window.addEventListener("DOMContentLoaded", () => {
-    if(localStorage.getItem("termsAccepted") === "true") {
+    if(localStorage.getItem("termsAccepted") === "true"){
         termsCheckbox.checked = true;
     }
 });
 
 window.addEventListener("click", (e) => {
-    const popup = document.getElementById("termsPopup");
-    if(e.target === popup) {
-        popup.style.display = "none";
-    }
+    if(e.target === popup){ popup.style.display = "none"; }
 });
