@@ -501,6 +501,14 @@ nav ul li a:hover {
     flex-wrap: wrap;
 }
 
+/* MEDIA QUERY */
+@media (max-width: 768px) {
+    .booking-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
 .booking-left, .booking-right {
     background: white;
     padding: 30px;
@@ -573,6 +581,41 @@ nav ul li a:hover {
 
 .confirm-btn:hover {
     background: #57b87e;
+}
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+#calendar button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #e6f7ff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#calendar button:hover:not(:disabled) {
+    background: #ccefff;
+}
+#calendar button:disabled {
+    background: #f8d7da;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+#calendar button.selected {
+    outline: 3px solid #007BFF;
+}
+#available-times ul {
+    list-style: none;
+    padding-left: 0;
+}
+#available-times li {
+    margin-bottom: 10px;
+}
+#available-times input[type="radio"] {
+    margin-right: 10px;
 }
 
 /* TERMS POPUP */
