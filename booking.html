@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <section class="booking-modern">
 
     <h1>Book Your Session</h1>
@@ -32,11 +42,10 @@
                 <input type="text" id="name" placeholder="Your name">
                 <input type="email" id="email" placeholder="Your email">
 
-                   <label class="terms">
-    <input type="checkbox" id="terms">
-    I agree to the <span class="open-terms">Terms & Conditions</span>
-            </label>
-              
+                <label class="terms">
+                    <input type="checkbox" id="terms">
+                    I agree to the <span class="open-terms">Terms & Conditions</span>
+                </label>
 
                 <button onclick="nextStep(2)">Next</button>
             </div>
@@ -82,6 +91,7 @@
 
     </div>
 </section>
+
 <!-- TERMS POPUP -->
 <div id="termsPopup" class="terms-popup">
 
@@ -104,3 +114,7 @@
     </div>
 
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
