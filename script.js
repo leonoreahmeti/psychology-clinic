@@ -69,70 +69,89 @@ updateSlider();
 // Booking page
 function nextStep(step) {
 
-    // STEP 1 VALIDATION
     if(step === 1) {
         const date = document.getElementById('date').value;
         const time = document.getElementById('time').value;
 
         if(!date) {
-            alert("Please select a date");
+            alert("Select a date");
             return;
         }
 
         if(!time) {
-            alert("Please select a time");
+            alert("Select a time");
             return;
         }
 
-        // vendos ne summary
         document.getElementById('sum-date').innerText = date;
         document.getElementById('sum-time').innerText = time;
     }
 
-    // STEP 2 VALIDATION
     if(step === 2) {
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-        const terms = document.getElementById('terms').checked;
+        const terms = document.getElementById('terms');
 
         if(!name) {
-            alert("Please enter your name");
+            alert("Enter your name");
             return;
         }
 
-        if(!email) {
-            alert("Please enter your email");
+        if(!email || !email.includes("@")) {
+            alert("Enter valid email");
             return;
         }
 
-        // simple email check
-        if(!email.includes("@") || !email.includes(".")) {
-            alert("Enter a valid email");
+        if(!terms.checked) {
+            alert("You must accept Terms");
             return;
         }
 
-        if(!terms) {
-            alert("You must accept the Terms & Conditions");
-            return;
-        }
-
-        // EMAIL CONFIRMATION POPUP
-        const confirmEmail = confirm(`Is this email correct?\n\n${email}`);
-
-        if(!confirmEmail) {
-            return; // ndalon nese klikon cancel
-        }
+        const confirmEmail = confirm(`Confirm email:\n${email}`);
+        if(!confirmEmail) return;
     }
-    window.addEventListener("DOMContentLoaded", () => {
-    if(localStorage.getItem("termsAccepted") === "true") {
-        const checkbox = document.getElementById("terms");
-        if(checkbox) {
-            checkbox.checked = true;
-        }
-    }
-});
 
-    // CHANGE STEP
     document.getElementById('step' + step).classList.remove('active');
     document.getElementById('step' + (step + 1)).classList.add('active');
 }
+const termsCheckbox = document.getElementById("terms");
+const popup = document.getElementById("termsPopup");
+const acceptBtn = document.getElementById("acceptTerms");
+const scrollBox = document.getElementById("termsScroll");
+
+// klik checkbox → hap popup
+termsCheckbox.addEventListener("click", function(e) {
+    if(!this.checked) {
+        e.preventDefault();
+        popup.style.display = "flex";
+    }
+});
+
+// enable button kur scroll në fund
+scrollBox.addEventListener("scroll", () => {
+    if(scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
+        acceptBtn.disabled = false;
+    }
+});
+
+// klik agree
+acceptBtn.addEventListener("click", () => {
+    termsCheckbox.checked = true;
+    popup.style.display = "none";
+
+    localStorage.setItem("termsAccepted", "true");
+});
+
+// auto-check nëse është pranu ma herët
+window.addEventListener("DOMContentLoaded", () => {
+    if(localStorage.getItem("termsAccepted") === "true") {
+        termsCheckbox.checked = true;
+    }
+});
+
+window.addEventListener("click", (e) => {
+    const popup = document.getElementById("termsPopup");
+    if(e.target === popup) {
+        popup.style.display = "none";
+    }
+});
