@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        <a href="index.html"><img src="images/logo.jpeg"></a>
+    </div>
+</nav>
+
+<section class="terms-page">
+
+    <h1>Terms & Conditions</h1>
+
+    <div class="terms-box">
+
+        <h3>1. Services</h3>
+        <p>
+            This platform provides access to psychological counseling sessions with a certified therapist. 
+            The service is not intended for emergency situations.
+        </p>
+
+        <h3>2. User Responsibility</h3>
+        <p>
+            You agree to provide accurate information when booking and to use the platform respectfully.
+        </p>
+
+        <h3>3. Payments</h3>
+        <p>
+            All sessions must be paid in advance. Refunds may be considered in specific cases.
+        </p>
+
+        <h3>4. Confidentiality</h3>
+        <p>
+            All sessions are private and confidential according to professional ethics.
+        </p>
+
+        <h3>5. Limitation</h3>
+        <p>
+            This service does not replace medical or emergency mental health support.
+        </p>
+
+        <button onclick="acceptTerms()">I Agree</button>
+
+    </div>
+
+</section>
+
+<script>
+function acceptTerms() {
+    localStorage.setItem("termsAccepted", "true");
+    window.location.href = "booking.html";
+}
+</script>
+
+</body>
+</html>
