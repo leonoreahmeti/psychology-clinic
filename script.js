@@ -20,7 +20,6 @@ function updateSlider() {
             card.style.filter = 'none';
             card.style.opacity = 1;
         } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
-        } else if(index === (currentIndex - 1 + cards.length) % cards.length) {
             card.classList.add('blur-left');
             card.style.transform = 'scale(0.85)';
             card.style.opacity = 0.5;
@@ -49,11 +48,6 @@ if (cards.length > 0 && prevBtn && nextBtn) {
             updateSlider();
             window.location.href = 'services.html';
         });
-cards.forEach(card => {
-    card.addEventListener('click', () => {
-        currentIndex = parseInt(card.dataset.index);
-        updateSlider();
-        window.location.href = 'services.html';
     });
 
     prevBtn.addEventListener('click', () => {
@@ -74,7 +68,7 @@ cards.forEach(card => {
     updateSlider();
 }
 
-/* CONTACT MODAL */
+// ---------------- CONTACT MODAL ----------------
 const openModal = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 const contactModal = document.getElementById("contactModal");
@@ -94,19 +88,6 @@ if (openModal && closeModal && contactModal) {
         }
     });
 }
-});
-
-nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateSlider();
-});
-
-setInterval(() => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateSlider();
-}, 4000);
-
-updateSlider();
 
 // ---------------- BOOKING + VISUAL CALENDAR ----------------
 const calendarEl = document.getElementById('calendar');
@@ -119,6 +100,8 @@ let selectedDate = null;
 let selectedTime = null;
 
 function generateCalendar() {
+    if (!calendarEl) return;
+
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth();
@@ -138,7 +121,7 @@ function generateCalendar() {
     grid.style.gap = '5px';
     calendarEl.appendChild(grid);
 
-    for(let day = 1; day <= daysInMonth; day++){
+    for (let day = 1; day <= daysInMonth; day++) {
         const dateStr = `${year}-${(month + 1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
         const dayEl = document.createElement('button');
         dayEl.textContent = day;
@@ -147,7 +130,7 @@ function generateCalendar() {
         dayEl.style.borderRadius = '5px';
         dayEl.style.cursor = 'pointer';
 
-        if(bookedDates.includes(dateStr)){
+        if (bookedDates.includes(dateStr)) {
             dayEl.disabled = true;
             dayEl.style.background = '#f8d7da';
             dayEl.style.color = '#721c24';
@@ -162,18 +145,22 @@ function generateCalendar() {
     }
 }
 
-function selectDate(dateStr, dayEl){
+function selectDate(dateStr, dayEl) {
     selectedDate = dateStr;
 
-    // Highlight selected day
-    calendarEl.querySelectorAll('button').forEach(btn => btn.style.outline = 'none');
-    dayEl.style.outline = '3px solid #007BFF';
+    if (calendarEl) {
+        calendarEl.querySelectorAll('button').forEach(btn => btn.style.outline = 'none');
+    }
 
+    dayEl.style.outline = '3px solid #007BFF';
     renderTimes();
 }
 
-function renderTimes(){
+function renderTimes() {
+    if (!timeListEl) return;
+
     timeListEl.innerHTML = '<h3>Available Times</h3>';
+
     allTimes.forEach(time => {
         const li = document.createElement('li');
         const radio = document.createElement('input');
@@ -186,6 +173,7 @@ function renderTimes(){
         const label = document.createElement('label');
         label.htmlFor = radio.id;
         label.textContent = time;
+
         li.appendChild(radio);
         li.appendChild(label);
         timeListEl.appendChild(li);
@@ -193,41 +181,56 @@ function renderTimes(){
 }
 
 // ---------------- NEXT STEP ----------------
-function nextStep(step){
-    if(step === 1){
-        if(!selectedDate){ alert('Please select a date'); return; }
-        if(!selectedTime){ alert('Please select a time'); return; }
+function nextStep(step) {
+    if (step === 1) {
+        if (!selectedDate) { alert('Please select a date'); return; }
+        if (!selectedTime) { alert('Please select a time'); return; }
 
-        document.getElementById('sum-date').innerText = selectedDate;
-        document.getElementById('sum-time').innerText = selectedTime;
-        document.getElementById('sum-service').innerText = 'Psychological Session';
-        document.getElementById('sum-therapist').innerText = 'Nafie Sylejmani';
-        document.getElementById('sum-duration').innerText = '50 minutes';
+        const sumDate = document.getElementById('sum-date');
+        const sumTime = document.getElementById('sum-time');
+        const sumService = document.getElementById('sum-service');
+        const sumTherapist = document.getElementById('sum-therapist');
+        const sumDuration = document.getElementById('sum-duration');
+
+        if (sumDate) sumDate.innerText = selectedDate;
+        if (sumTime) sumTime.innerText = selectedTime;
+        if (sumService) sumService.innerText = 'Psychological Session';
+        if (sumTherapist) sumTherapist.innerText = 'Nafie Sylejmani';
+        if (sumDuration) sumDuration.innerText = '50 minutes';
 
         showStep(2);
-    } else if(step === 2){
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const terms = document.getElementById('terms').checked;
+    } else if (step === 2) {
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const terms = document.getElementById('terms');
 
-        if(!name){ alert('Enter your name'); return; }
-        if(!email || !email.includes('@')){ alert('Enter valid email'); return; }
-        if(!terms){ alert('You must accept Terms'); return; }
+        const nameValue = name ? name.value.trim() : '';
+        const emailValue = email ? email.value.trim() : '';
+        const termsChecked = terms ? terms.checked : false;
 
-        document.getElementById('sum-name').innerText = name;
-        document.getElementById('sum-email').innerText = email;
+        if (!nameValue) { alert('Enter your name'); return; }
+        if (!emailValue || !emailValue.includes('@')) { alert('Enter valid email'); return; }
+        if (!termsChecked) { alert('You must accept Terms'); return; }
+
+        const sumName = document.getElementById('sum-name');
+        const sumEmail = document.getElementById('sum-email');
+
+        if (sumName) sumName.innerText = nameValue;
+        if (sumEmail) sumEmail.innerText = emailValue;
 
         showStep(3);
     }
 }
 
-function showStep(step){
+function showStep(step) {
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-    document.getElementById('step'+step).classList.add('active');
-    document.getElementById('payment-section').style.display = (step===3)? 'block':'none';
-}
 
-generateCalendar();
+    const currentStep = document.getElementById('step' + step);
+    const paymentSection = document.getElementById('payment-section');
+
+    if (currentStep) currentStep.classList.add('active');
+    if (paymentSection) paymentSection.style.display = (step === 3) ? 'block' : 'none';
+}
 
 // ---------------- TERMS POPUP ----------------
 const termsCheckbox = document.getElementById("terms");
@@ -235,34 +238,40 @@ const popup = document.getElementById("termsPopup");
 const acceptBtn = document.getElementById("acceptTerms");
 const scrollBox = document.getElementById("termsScroll");
 
-termsCheckbox.addEventListener("click", function(e){
-    if(!this.checked){
-        e.preventDefault();
-        popup.style.display = "flex";
-    }
-});
+if (termsCheckbox && popup && acceptBtn && scrollBox) {
+    termsCheckbox.addEventListener("click", function(e) {
+        if (!this.checked) {
+            e.preventDefault();
+            popup.style.display = "flex";
+        }
+    });
 
-scrollBox.addEventListener("scroll", () => {
-    if(scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight){
-        acceptBtn.disabled = false;
-    }
-});
+    scrollBox.addEventListener("scroll", () => {
+        if (scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
+            acceptBtn.disabled = false;
+        }
+    });
 
-acceptBtn.addEventListener("click", () => {
-    termsCheckbox.checked = true;
-    popup.style.display = "none";
-    localStorage.setItem("termsAccepted", "true");
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-    if(localStorage.getItem("termsAccepted") === "true"){
+    acceptBtn.addEventListener("click", () => {
         termsCheckbox.checked = true;
-    }
-});
+        popup.style.display = "none";
+        localStorage.setItem("termsAccepted", "true");
+    });
 
-window.addEventListener("click", (e) => {
-    if(e.target === popup){ popup.style.display = "none"; }
-});
-window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener("click", (e) => {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+        if (localStorage.getItem("termsAccepted") === "true") {
+            termsCheckbox.checked = true;
+        }
+    });
+}
+
+// ---------------- PAGE LOAD ----------------
+window.addEventListener("DOMContentLoaded", () => {
     generateCalendar();
 });
