@@ -77,7 +77,6 @@ if (openModal && closeModal && contactModal) {
         contactModal.classList.add("active");
     });
 
-<<<<<<< HEAD
     closeModal.addEventListener("click", () => {
         contactModal.classList.remove("active");
     });
@@ -88,96 +87,3 @@ if (openModal && closeModal && contactModal) {
         }
     });
 }
-=======
-updateSlider();
-
-// Booking page
-function nextStep(step) {
-
-    if(step === 1) {
-        const date = document.getElementById('date').value;
-        const time = document.getElementById('time').value;
-
-        if(!date) {
-            alert("Select a date");
-            return;
-        }
-
-        if(!time) {
-            alert("Select a time");
-            return;
-        }
-
-        document.getElementById('sum-date').innerText = date;
-        document.getElementById('sum-time').innerText = time;
-    }
-
-    if(step === 2) {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const terms = document.getElementById('terms');
-
-        if(!name) {
-            alert("Enter your name");
-            return;
-        }
-
-        if(!email || !email.includes("@")) {
-            alert("Enter valid email");
-            return;
-        }
-
-        if(!terms.checked) {
-            alert("You must accept Terms");
-            return;
-        }
-
-        const confirmEmail = confirm(`Confirm email:\n${email}`);
-        if(!confirmEmail) return;
-    }
-
-    document.getElementById('step' + step).classList.remove('active');
-    document.getElementById('step' + (step + 1)).classList.add('active');
-}
-const termsCheckbox = document.getElementById("terms");
-const popup = document.getElementById("termsPopup");
-const acceptBtn = document.getElementById("acceptTerms");
-const scrollBox = document.getElementById("termsScroll");
-
-// klik checkbox → hap popup
-termsCheckbox.addEventListener("click", function(e) {
-    if(!this.checked) {
-        e.preventDefault();
-        popup.style.display = "flex";
-    }
-});
-
-// enable button kur scroll në fund
-scrollBox.addEventListener("scroll", () => {
-    if(scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
-        acceptBtn.disabled = false;
-    }
-});
-
-// klik agree
-acceptBtn.addEventListener("click", () => {
-    termsCheckbox.checked = true;
-    popup.style.display = "none";
-
-    localStorage.setItem("termsAccepted", "true");
-});
-
-// auto-check nëse është pranu ma herët
-window.addEventListener("DOMContentLoaded", () => {
-    if(localStorage.getItem("termsAccepted") === "true") {
-        termsCheckbox.checked = true;
-    }
-});
-
-window.addEventListener("click", (e) => {
-    const popup = document.getElementById("termsPopup");
-    if(e.target === popup) {
-        popup.style.display = "none";
-    }
-});
->>>>>>> c305991327c8d3d0b3872d29976b60f21560decf
