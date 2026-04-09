@@ -1,94 +1,85 @@
-<section class="booking-modern">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Session | Psychology Clinic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <h1>Book Your Session</h1>
-
-    <div class="booking-container">
-
-        <!-- LEFT SIDE -->
-        <div class="booking-left">
-
-            <!-- STEP 1 -->
-            <div class="step active" id="step1">
-                <h2>Select Date & Time</h2>
-
-                <input type="date" id="date">
-
-                <select id="time">
-                    <option value="">Select Time</option>
-                    <option>10:00</option>
-                    <option>11:00</option>
-                    <option>12:00</option>
-                    <option>14:00</option>
-                    <option>16:00</option>
-                </select>
-
-                <button onclick="nextStep(1)">Next</button>
-            </div>
-
-            <!-- STEP 2 -->
-            <div class="step" id="step2">
-                <h2>Your Details</h2>
-
-                <input type="text" id="name" placeholder="Your name">
-                <input type="email" id="email" placeholder="Your email">
-
-                   <label class="terms">
-    <input type="checkbox" id="terms">
-    I agree to the <span class="open-terms">Terms & Conditions</span>
-            </label>
-              
-
-                <button onclick="nextStep(2)">Next</button>
-            </div>
-
-            <!-- STEP 3 -->
-            <div class="step" id="step3">
-
-                <div class="summary">
-                    <h3>Session Summary</h3>
-                    <p><strong>Therapist:</strong> Nafie Sylejmani</p>
-                    <p><strong>Service:</strong> Psychological Session</p>
-                    <p><strong>Date:</strong> <span id="sum-date"></span></p>
-                    <p><strong>Time:</strong> <span id="sum-time"></span></p>
-                    <p><strong>Duration:</strong> 50 minutes</p>
-
-                    <input type="text" placeholder="Promo Code">
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="booking-right">
-
-            <h3>Payment Method</h3>
-
-            <div class="payment">
-                <label>
-                    <input type="radio" name="pay" checked>
-                    Credit / Debit Card
-                </label>
-
-                <label>
-                    <input type="radio" name="pay">
-                    PayPal
-                </label>
-            </div>
-
-            <button class="confirm-btn">Confirm Booking</button>
-
-        </div>
-
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">
+        <a href="index.html"><img src="images/logo.jpeg" alt="Logo"></a>
     </div>
+    <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="news.html">News</a></li>
+    </ul>
+</nav>
+
+
+<!-- BOOKING SECTION -->
+<section class="booking-modern">
+  <div class="booking-container">
+
+    <div class="booking-left">
+      <!-- STEP 1: Calendar + Available Times -->
+      <div class="step active" id="step1">
+        <h2>Select Date & Time</h2>
+        <div class="calendar-times">
+          <div id="calendar"></div> <!-- Këtu do vendosim kalendarin me datat -->
+          <div id="available-times">
+            <h3>Available Times</h3>
+            <div id="time-list" class="time-grid"></div>
+          </div>
+        </div>
+        <button onclick="nextStep(1)">Next</button>
+      </div>
+
+      <!-- STEP 2: Personal Info + Terms -->
+      <div class="step" id="step2">
+        <h2>Your Details</h2>
+        <input type="text" id="name" placeholder="Your name">
+        <input type="email" id="email" placeholder="Your email">
+        <label class="terms">
+          <input type="checkbox" id="terms">
+          I agree to the <span class="open-terms">Terms & Conditions</span>
+        </label>
+        <button onclick="nextStep(2)">Next</button>
+      </div>
+
+      <!-- STEP 3: Summary -->
+      <div class="step" id="step3">
+        <h2>Session Summary</h2>
+       <p><strong>Therapist:</strong> <span id="sum-therapist"></span></p>
+       <p><strong>Service:</strong> <span id="sum-service"></span></p>
+       <p><strong>Duration:</strong> <span id="sum-duration"></span></p>
+      </div>
+    </div>
+
+    <div class="booking-right">
+      <!-- Payment only visible in step 3 -->
+      <div id="payment-section" style="display:none;">
+        <h3>Payment Method</h3>
+        <label><input type="radio" name="pay" checked> Credit / Debit Card</label>
+        <label><input type="radio" name="pay"> PayPal</label>
+        <button class="confirm-btn">Confirm Booking</button>
+      </div>
+    </div>
+
+  </div>
 </section>
+
 <!-- TERMS POPUP -->
 <div id="termsPopup" class="terms-popup">
-
     <div class="terms-content">
-
         <h2>Terms & Conditions</h2>
-
         <div class="terms-scroll" id="termsScroll">
             <p>By booking a session, you agree that this platform only connects you with a licensed psychologist.</p>
             <p>Sessions are not emergency services.</p>
@@ -98,9 +89,16 @@
             <p>More legal terms apply...</p>
             <p style="margin-top:20px;">(Scroll to bottom to accept)</p>
         </div>
-
         <button id="acceptTerms" disabled>I Agree</button>
-
     </div>
-
 </div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Psychology Clinic | All rights reserved</p>
+</footer>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+</body>
+</html>

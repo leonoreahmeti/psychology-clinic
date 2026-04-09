@@ -501,6 +501,14 @@ nav ul li a:hover {
     flex-wrap: wrap;
 }
 
+/* MEDIA QUERY */
+@media (max-width: 768px) {
+    .booking-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
 .booking-left, .booking-right {
     background: white;
     padding: 30px;
@@ -573,6 +581,69 @@ nav ul li a:hover {
 
 .confirm-btn:hover {
     background: #57b87e;
+}
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+#calendar button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #e6f7ff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#calendar button:hover:not(:disabled) {
+    background: #ccefff;
+}
+#calendar button:disabled {
+    background: #f8d7da;
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #007BFF;
+    color: white;
+}
+#calendar button.selected {
+    outline: 3px solid #007BFF;
+}
+#available-times ul {
+    list-style: none;
+    padding-left: 0;
+     max-height: 300px;
+    overflow-y: auto;
+}
+#available-times li {
+    margin-bottom: 10px;
+}
+#available-times input[type="radio"] {
+    margin-right: 10px;
+}
+.calendar-times {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#calendar {
+    flex: 1;             /* zë rreth 50% hapësirë */
+    max-width: 350px;    /* limite më e mirë për kalendarin */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+}
+
+#available-times {
+    flex: 1;
+    max-width: 350px;    /* e njëjta madhësi me kalendarin */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
 }
 
 /* TERMS POPUP */
@@ -1094,7 +1165,6 @@ nav ul li a:hover {
         margin-left: 0;
     }
 }
-<<<<<<< HEAD
 footer {
     background-color: #6fcf97;
     color: white;
@@ -1106,7 +1176,6 @@ footer p {
     margin: 0;
     font-size: 15px;
 }
-=======
 
 /* TERMS PAGE */
 .terms-page {
@@ -1148,4 +1217,3 @@ footer p {
 .terms-box button:hover {
     background: #57b87e;
 }
->>>>>>> c305991327c8d3d0b3872d29976b60f21560decf
