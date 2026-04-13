@@ -588,6 +588,96 @@ nav ul li a:hover {
     gap: 5px;
     margin-bottom: 20px;
 }
+/* CALENDAR BOX */
+#calendar {
+    flex: 1;
+    max-width: 380px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* MONTH TITLE */
+.calendar-header {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* DAYS OF WEEK */
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: #888;
+}
+/* GRID */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+/* DAY BUTTON */
+.calendar-grid button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #e9f7ef;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.calendar-grid button:hover {
+    background: #c8efd8;
+}
+
+.calendar-grid button.selected {
+    background: #6fcf97;
+    color: white;
+}
+
+.calendar-grid button:disabled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* TIMES */
+#available-times {
+    flex: 1;
+    max-width: 380px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time-grid label {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    background: #e9f7ef;
+    text-align: center;
+    cursor: pointer;
+}
+
+.time-grid input {
+    display: none;
+}
+
+.time-grid input:checked + label {
+    background: #6fcf97;
+    color: white;
+}
 #calendar button {
     padding: 10px;
     border: 1px solid #ccc;
@@ -609,11 +699,14 @@ nav ul li a:hover {
 #calendar button.selected {
     outline: 3px solid #007BFF;
 }
+
 #available-times {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 10px;
-  background: white;
+    flex: 1;
+    max-width: 350px;    /* e njëjta madhësi me kalendarin */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
 }
 #available-times ul {
     list-style: none;
@@ -628,28 +721,11 @@ nav ul li a:hover {
     margin-right: 10px;
 }
 .calendar-times {
-    display: flex;
-    gap: 20px;
+     display: flex;
+    gap: 30px;
     justify-content: center;
     align-items: flex-start;
-}
-
-#calendar {
-    flex: 1;             /* zë rreth 50% hapësirë */
-    max-width: 350px;    /* limite më e mirë për kalendarin */
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 10px;
-    background: white;
-}
-
-#available-times {
-    flex: 1;
-    max-width: 350px;    /* e njëjta madhësi me kalendarin */
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 10px;
-    background: white;
+    flex-wrap: wrap;
 }
 
 /* TERMS POPUP */
