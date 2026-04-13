@@ -596,6 +596,8 @@ nav ul li a:hover {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+     width: 350px;
+    min-height: 300px;
 }
 
 /* MONTH TITLE */
@@ -652,6 +654,9 @@ nav ul li a:hover {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border: 1px solid #ccc;
+    width: 350px;
+    min-height: 300px;
 }
 
 .time-grid {
@@ -700,14 +705,6 @@ nav ul li a:hover {
     outline: 3px solid #007BFF;
 }
 
-#available-times {
-    flex: 1;
-    max-width: 350px;    /* e njëjta madhësi me kalendarin */
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 10px;
-    background: white;
-}
 #available-times ul {
     list-style: none;
     padding-left: 0;
@@ -722,7 +719,7 @@ nav ul li a:hover {
 }
 .calendar-times {
      display: flex;
-    gap: 30px;
+    gap: 25px;
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
