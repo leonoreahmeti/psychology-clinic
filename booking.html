@@ -28,61 +28,60 @@
 <section class="booking-modern">
   <div class="booking-container">
 
-   <div class="booking-left">
-  <div class="step active" id="step1">
-    <h2>Select Date & Time</h2>
+    <!-- LEFT SIDE -->
+    <div class="booking-left">
 
-    <div class="calendar-times">
-      <div id="calendar"></div>
+      <!-- STEP 1 -->
+      <div class="step active" id="step1">
+        <h2>Select Date & Time</h2>
 
-      <div id="available-times">
-        <h3>Available Times</h3>
-        <div id="time-list" class="time-grid"></div>
+        <div class="calendar-times">
+          <div id="calendar"></div>
+
+          <div id="available-times">
+            <h3>Available Times</h3>
+            <div id="time-list" class="time-grid"></div>
+          </div>
+        </div>
+
+        <button onclick="nextStep(1)">Next</button>
       </div>
-    </div>
 
-    <button onclick="nextStep(1)">Next</button>
-  </div>
-</div>
+      <!-- STEP 2 -->
+      <div class="step" id="step2">
+        <h2>Your Details</h2>
 
-      <!-- STEP 2: Personal Info + Terms -->
-<div class="booking-left">
+        <input type="text" id="name" placeholder="Your name">
+        <input type="email" id="email" placeholder="Your email">
 
-  <div class="step active" id="step1">
-    ...
-  </div>
+        <label class="terms">
+          <input type="checkbox" id="terms">
+          I agree to the 
+          <a href="terms.html" target="_blank">Terms & Conditions</a>
+        </label>
 
-  <div class="step" id="step2">
-    <h2>Your Details</h2>
-    <input type="text" id="name" placeholder="Your name">
-    <input type="email" id="email" placeholder="Your email">
+        <button onclick="nextStep(2)">Next</button>
+      </div>
 
-  <label class="terms">
-  <input type="checkbox" id="terms">
-  I agree to the 
-  <a href="terms.html" target="_blank">Terms & Conditions</a>
-</label>
-
-    <button onclick="nextStep(2)">Next</button>
-  </div>
-
-</div>
-
-      <!-- STEP 3: Summary -->
+      <!-- STEP 3 -->
       <div class="step" id="step3">
         <h2>Session Summary</h2>
-       <p><strong>Therapist:</strong> <span id="sum-therapist"></span></p>
-       <p><strong>Service:</strong> <span id="sum-service"></span></p>
-       <p><strong>Duration:</strong> <span id="sum-duration"></span></p>
+
+        <p><strong>Therapist:</strong> <span id="sum-therapist"></span></p>
+        <p><strong>Service:</strong> <span id="sum-service"></span></p>
+        <p><strong>Duration:</strong> <span id="sum-duration"></span></p>
       </div>
+
     </div>
 
+    <!-- RIGHT SIDE -->
     <div class="booking-right">
-      <!-- Payment only visible in step 3 -->
       <div id="payment-section" style="display:none;">
         <h3>Payment Method</h3>
+
         <label><input type="radio" name="pay" checked> Credit / Debit Card</label>
         <label><input type="radio" name="pay"> PayPal</label>
+
         <button class="confirm-btn">Confirm Booking</button>
       </div>
     </div>
