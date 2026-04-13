@@ -609,6 +609,12 @@ nav ul li a:hover {
 #calendar button.selected {
     outline: 3px solid #007BFF;
 }
+#available-times {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+}
 #available-times ul {
     list-style: none;
     padding-left: 0;
