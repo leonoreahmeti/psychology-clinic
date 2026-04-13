@@ -114,6 +114,8 @@ function generateCalendar() {
     const month = currentDate.getMonth();
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+today.setHours(0,0,0,0);
 
     calendarEl.innerHTML = '';
 
@@ -167,11 +169,13 @@ function generateCalendar() {
         const btn = document.createElement('button');
         btn.textContent = day;
 
-        if (bookedDates.includes(dateStr)) {
-            btn.disabled = true;
-        } else {
-            btn.addEventListener('click', () => selectDate(dateStr, btn));
-        }
+const thisDate = new Date(dateStr);
+
+if (thisDate < today || bookedDates.includes(dateStr)) {
+    btn.disabled = true;
+} else {
+    btn.addEventListener('click', () => selectDate(dateStr, btn));
+}
 
         grid.appendChild(btn);
     }
@@ -180,11 +184,12 @@ function generateCalendar() {
 function selectDate(dateStr, dayEl) {
     selectedDate = dateStr;
 
-    if (calendarEl) {
-        calendarEl.querySelectorAll('button').forEach(btn => btn.style.outline = 'none');
-    }
+  calendarEl.querySelectorAll('.calendar-grid button').forEach(btn => {
+    btn.classList.remove('selected');
+});
+    
 
-    dayEl.style.outline = '3px solid #007BFF';
+   dayEl.classList.add('selected');
     renderTimes();
 }
 
@@ -194,7 +199,7 @@ function renderTimes() {
     timeListEl.innerHTML = '<h3>Available Times</h3>';
 
     allTimes.forEach(time => {
-        const li = document.createElement('li');
+        const li = document.createElement('div');
         const radio = document.createElement('input');
         radio.type = 'radio';
         radio.name = 'time';
@@ -214,9 +219,18 @@ function renderTimes() {
 
 // ---------------- NEXT STEP ----------------
 function nextStep(step) {
+
     if (step === 1) {
-        if (!selectedDate) { alert('Please select a date'); return; }
-}
+        if (!selectedDate) {
+            alert('Please select a date');
+            return;
+        }
+
+        if (!selectedTime) {
+            alert('Please select a time');
+            return;
+        }
+
         const sumDate = document.getElementById('sum-date');
         const sumTime = document.getElementById('sum-time');
         const sumService = document.getElementById('sum-service');
@@ -230,7 +244,9 @@ function nextStep(step) {
         if (sumDuration) sumDuration.innerText = '50 minutes';
 
         showStep(2);
-    } else if (step === 2) {
+    }
+
+    else if (step === 2) {
         const name = document.getElementById('name');
         const email = document.getElementById('email');
         const terms = document.getElementById('terms');
