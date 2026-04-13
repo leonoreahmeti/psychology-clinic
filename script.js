@@ -94,54 +94,86 @@ const calendarEl = document.getElementById('calendar');
 const timeListEl = document.getElementById('time-list');
 
 const bookedDates = ['2026-04-09', '2026-04-15'];
-const allTimes = ['14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
+const allTimes = [
+'14:00','14:30','15:00','15:30',
+'16:00','16:30','17:00','17:30',
+'18:00','18:30','19:00','19:30',
+'20:00','20:30','21:00','21:30',
+'22:00'
+];
 
 let selectedDate = null;
 let selectedTime = null;
 
+let currentDate = new Date();
+
 function generateCalendar() {
     if (!calendarEl) return;
 
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     calendarEl.innerHTML = '';
-    const monthName = now.toLocaleString('default', { month: 'long' });
-    const title = document.createElement('h3');
-    title.textContent = `${monthName} ${year}`;
-    title.style.textAlign = 'center';
-    calendarEl.appendChild(title);
 
+    // HEADER (muaji + buttons)
+    const header = document.createElement('div');
+    header.classList.add('calendar-header');
+
+    const prev = document.createElement('button');
+    prev.textContent = '<';
+    prev.onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        generateCalendar();
+    };
+
+    const next = document.createElement('button');
+    next.textContent = '>';
+    next.onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        generateCalendar();
+    };
+
+    const title = document.createElement('span');
+    title.textContent = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    header.appendChild(prev);
+    header.appendChild(title);
+    header.appendChild(next);
+    calendarEl.appendChild(header);
+
+    // DAYS OF WEEK
+    const daysRow = document.createElement('div');
+    daysRow.classList.add('calendar-days');
+
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    days.forEach(d => {
+        const el = document.createElement('div');
+        el.textContent = d;
+        daysRow.appendChild(el);
+    });
+
+    calendarEl.appendChild(daysRow);
+
+    // GRID
     const grid = document.createElement('div');
     grid.classList.add('calendar-grid');
-    grid.style.display = 'grid';
-    grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
-    grid.style.gap = '5px';
     calendarEl.appendChild(grid);
 
     for (let day = 1; day <= daysInMonth; day++) {
-        const dateStr = `${year}-${(month + 1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
-        const dayEl = document.createElement('button');
-        dayEl.textContent = day;
-        dayEl.style.padding = '10px';
-        dayEl.style.border = '1px solid #ccc';
-        dayEl.style.borderRadius = '5px';
-        dayEl.style.cursor = 'pointer';
+        const dateStr = `${year}-${(month+1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+
+        const btn = document.createElement('button');
+        btn.textContent = day;
 
         if (bookedDates.includes(dateStr)) {
-            dayEl.disabled = true;
-            dayEl.style.background = '#f8d7da';
-            dayEl.style.color = '#721c24';
-            dayEl.style.cursor = 'not-allowed';
+            btn.disabled = true;
         } else {
-            dayEl.style.background = '#d4edda';
-            dayEl.style.color = '#155724';
-            dayEl.addEventListener('click', () => selectDate(dateStr, dayEl));
+            btn.addEventListener('click', () => selectDate(dateStr, btn));
         }
 
-        grid.appendChild(dayEl);
+        grid.appendChild(btn);
     }
 }
 
@@ -184,9 +216,6 @@ function renderTimes() {
 function nextStep(step) {
     if (step === 1) {
         if (!selectedDate) { alert('Please select a date'); return; }
-if (!selectedDate) {
-  timeListEl.innerHTML = '<p>Please select a date</p>';
-  return;
 }
         const sumDate = document.getElementById('sum-date');
         const sumTime = document.getElementById('sum-time');
