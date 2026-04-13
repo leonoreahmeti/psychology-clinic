@@ -683,28 +683,31 @@ nav ul li a:hover {
     background: #6fcf97;
     color: white;
 }
-#calendar button {
+.calendar-grid button {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #e6f7ff;
+    border: none;
+    border-radius: 8px;
+    background: #e9f7ef;
     cursor: pointer;
+    font-weight: 500;
     transition: all 0.2s;
 }
-#calendar button:hover:not(:disabled) {
-    background: #ccefff;
-}
-#calendar button:disabled {
-    background: #f8d7da;
-    cursor: not-allowed;
-    opacity: 0.5;
-    background-color: #007BFF;
-    color: white;
-}
-#calendar button.selected {
-    outline: 3px solid #007BFF;
+
+.calendar-grid button:hover:not(:disabled) {
+    background: #c8efd8;
 }
 
+.calendar-grid button.selected {
+    background: #6fcf97;
+    color: white;
+}
+
+.calendar-grid button:disabled {
+    background: #f8d7da;
+    color: #721c24;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 #available-times ul {
     list-style: none;
     padding-left: 0;
