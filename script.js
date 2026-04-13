@@ -184,8 +184,10 @@ function renderTimes() {
 function nextStep(step) {
     if (step === 1) {
         if (!selectedDate) { alert('Please select a date'); return; }
-        if (!selectedTime) { alert('Please select a time'); return; }
-
+if (!selectedDate) {
+  timeListEl.innerHTML = '<p>Please select a date</p>';
+  return;
+}
         const sumDate = document.getElementById('sum-date');
         const sumTime = document.getElementById('sum-time');
         const sumService = document.getElementById('sum-service');
