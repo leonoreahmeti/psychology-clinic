@@ -17,7 +17,6 @@ function updateSlider() {
             card.classList.add('active');
             card.style.zIndex = 2;
             card.style.transform = 'scale(1.1)';
-            card.style.filter = 'none';
             card.style.opacity = 1;
         } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
             card.classList.add('blur-left');
@@ -40,11 +39,10 @@ function updateSlider() {
     });
 }
 
-/* Run slider only if slider exists on page */
 if (cards.length > 0 && prevBtn && nextBtn) {
     cards.forEach(card => {
         card.addEventListener('click', () => {
-            currentIndex = parseInt(card.dataset.index);
+            currentIndex = parseInt(card.dataset.index, 10);
             updateSlider();
             window.location.href = 'services.html';
         });
@@ -69,256 +67,286 @@ if (cards.length > 0 && prevBtn && nextBtn) {
 }
 
 // ---------------- CONTACT MODAL ----------------
-const openModal = document.getElementById("openModal");
-const closeModal = document.getElementById("closeModal");
-const contactModal = document.getElementById("contactModal");
+const openModal = document.getElementById('openModal');
+const closeModal = document.getElementById('closeModal');
+const contactModal = document.getElementById('contactModal');
 
 if (openModal && closeModal && contactModal) {
-    openModal.addEventListener("click", () => {
-        contactModal.classList.add("active");
+    openModal.addEventListener('click', () => {
+        contactModal.classList.add('active');
     });
 
-    closeModal.addEventListener("click", () => {
-        contactModal.classList.remove("active");
+    closeModal.addEventListener('click', () => {
+        contactModal.classList.remove('active');
     });
 
-    window.addEventListener("click", (e) => {
+    window.addEventListener('click', (e) => {
         if (e.target === contactModal) {
-            contactModal.classList.remove("active");
+            contactModal.classList.remove('active');
         }
     });
 }
 
-// ---------------- BOOKING + VISUAL CALENDAR ----------------
+// ---------------- BOOKING FLOW ----------------
 const calendarEl = document.getElementById('calendar');
 const timeListEl = document.getElementById('time-list');
 
 const bookedDates = ['2026-04-09', '2026-04-15'];
 const allTimes = [
-'14:00','14:30','15:00','15:30',
-'16:00','16:30','17:00','17:30',
-'18:00','18:30','19:00','19:30',
-'20:00','20:30','21:00','21:30',
-'22:00'
+    '14:00', '14:30', '15:00', '15:30',
+    '16:00', '16:30', '17:00', '17:30',
+    '18:00', '18:30', '19:00', '19:30',
+    '20:00', '20:30', '21:00'
 ];
 
 let selectedDate = null;
 let selectedTime = null;
-
+let selectedService = null;
 let currentDate = new Date();
+
+function updateLiveSummary() {
+    const liveDate = document.getElementById('live-date');
+    const liveTime = document.getElementById('live-time');
+    const liveService = document.getElementById('live-service');
+
+    if (liveDate) liveDate.innerText = selectedDate || 'Not selected';
+    if (liveTime) liveTime.innerText = selectedTime || 'Not selected';
+    if (liveService) liveService.innerText = selectedService || 'Not selected';
+}
+
+function updateFinalSummary() {
+    const clientName = document.getElementById('client-name');
+    const clientEmail = document.getElementById('client-email');
+
+    const sumDate = document.getElementById('sum-date');
+    const sumTime = document.getElementById('sum-time');
+    const sumService = document.getElementById('sum-service');
+    const sumName = document.getElementById('sum-name');
+    const sumEmail = document.getElementById('sum-email');
+
+    if (sumDate) sumDate.innerText = selectedDate || '-';
+    if (sumTime) sumTime.innerText = selectedTime || '-';
+    if (sumService) sumService.innerText = selectedService || '-';
+    if (sumName) sumName.innerText = clientName ? clientName.value.trim() || '-' : '-';
+    if (sumEmail) sumEmail.innerText = clientEmail ? clientEmail.value.trim() || '-' : '-';
+}
 
 function generateCalendar() {
     if (!calendarEl) return;
 
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+
     const today = new Date();
-today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
 
     calendarEl.innerHTML = '';
 
-    // HEADER (muaji + buttons)
     const header = document.createElement('div');
     header.classList.add('calendar-header');
 
     const prev = document.createElement('button');
+    prev.type = 'button';
     prev.textContent = '<';
-    prev.onclick = () => {
+    prev.addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
         generateCalendar();
-    };
+    });
 
     const next = document.createElement('button');
+    next.type = 'button';
     next.textContent = '>';
-    next.onclick = () => {
+    next.addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
         generateCalendar();
-    };
+    });
 
     const title = document.createElement('span');
-    title.textContent = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+    title.textContent = currentDate.toLocaleString('default', {
+        month: 'long',
+        year: 'numeric'
+    });
 
     header.appendChild(prev);
     header.appendChild(title);
     header.appendChild(next);
     calendarEl.appendChild(header);
 
-    // DAYS OF WEEK
     const daysRow = document.createElement('div');
     daysRow.classList.add('calendar-days');
 
-    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    days.forEach(d => {
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].forEach(day => {
         const el = document.createElement('div');
-        el.textContent = d;
+        el.textContent = day;
         daysRow.appendChild(el);
     });
 
     calendarEl.appendChild(daysRow);
 
-    // GRID
     const grid = document.createElement('div');
     grid.classList.add('calendar-grid');
     calendarEl.appendChild(grid);
 
     for (let day = 1; day <= daysInMonth; day++) {
-        const dateStr = `${year}-${(month+1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
-
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.textContent = day;
 
-const thisDate = new Date(dateStr);
+        const thisDate = new Date(dateStr);
 
-if (thisDate < today || bookedDates.includes(dateStr)) {
-    btn.disabled = true;
-} else {
-    btn.addEventListener('click', () => selectDate(dateStr, btn));
-}
+        if (thisDate < today || bookedDates.includes(dateStr)) {
+            btn.disabled = true;
+        } else {
+            btn.addEventListener('click', () => {
+                selectedDate = dateStr;
+
+                calendarEl.querySelectorAll('.calendar-grid button').forEach(button => {
+                    button.classList.remove('selected');
+                });
+
+                btn.classList.add('selected');
+                updateLiveSummary();
+            });
+        }
 
         grid.appendChild(btn);
     }
 }
 
-function selectDate(dateStr, dayEl) {
-    selectedDate = dateStr;
-
-  calendarEl.querySelectorAll('.calendar-grid button').forEach(btn => {
-    btn.classList.remove('selected');
-});
-    
-
-   dayEl.classList.add('selected');
-    renderTimes();
-}
-
 function renderTimes() {
     if (!timeListEl) return;
 
-    timeListEl.innerHTML = '<h3>Available Times</h3>';
+    timeListEl.innerHTML = '';
 
     allTimes.forEach(time => {
-        const li = document.createElement('div');
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = 'time';
-        radio.value = time;
-        radio.id = `time-${time.replace(':','')}`;
-        radio.addEventListener('change', () => selectedTime = time);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option';
+        btn.textContent = time;
 
-        const label = document.createElement('label');
-        label.htmlFor = radio.id;
-        label.textContent = time;
+        btn.addEventListener('click', () => {
+            selectedTime = time;
 
-        li.appendChild(radio);
-        li.appendChild(label);
-        timeListEl.appendChild(li);
+            document.querySelectorAll('.time-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            btn.classList.add('selected');
+            updateLiveSummary();
+        });
+
+        timeListEl.appendChild(btn);
     });
 }
 
-// ---------------- NEXT STEP ----------------
-function nextStep(step) {
+function selectSession(service, element) {
+    selectedService = service;
 
-    if (step === 1) {
-        if (!selectedDate) {
-            alert('Please select a date');
-            return;
-        }
+    document.querySelectorAll('.session-card').forEach(card => {
+        card.classList.remove('selected');
+    });
 
-        if (!selectedTime) {
-            alert('Please select a time');
-            return;
-        }
-
-        const sumDate = document.getElementById('sum-date');
-        const sumTime = document.getElementById('sum-time');
-        const sumService = document.getElementById('sum-service');
-        const sumTherapist = document.getElementById('sum-therapist');
-        const sumDuration = document.getElementById('sum-duration');
-
-        if (sumDate) sumDate.innerText = selectedDate;
-        if (sumTime) sumTime.innerText = selectedTime;
-        if (sumService) sumService.innerText = 'Psychological Session';
-        if (sumTherapist) sumTherapist.innerText = 'Nafie Sylejmani';
-        if (sumDuration) sumDuration.innerText = '50 minutes';
-
-        showStep(2);
-    }
-
-    else if (step === 2) {
-        const name = document.getElementById('name');
-        const email = document.getElementById('email');
-        const terms = document.getElementById('terms');
-
-        const nameValue = name ? name.value.trim() : '';
-        const emailValue = email ? email.value.trim() : '';
-        const termsChecked = terms ? terms.checked : false;
-
-        if (!nameValue) { alert('Enter your name'); return; }
-        if (!emailValue || !emailValue.includes('@')) { alert('Enter valid email'); return; }
-        if (!termsChecked) { alert('You must accept Terms'); return; }
-
-        const sumName = document.getElementById('sum-name');
-        const sumEmail = document.getElementById('sum-email');
-
-        if (sumName) sumName.innerText = nameValue;
-        if (sumEmail) sumEmail.innerText = emailValue;
-
-        showStep(3);
-    }
+    element.classList.add('selected');
+    updateLiveSummary();
 }
 
-function showStep(step) {
-    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+function goToStep(step) {
+    if (step === 2 && !selectedDate) {
+        alert('Please select a date first.');
+        return;
+    }
 
-    const currentStep = document.getElementById('step' + step);
-    const paymentSection = document.getElementById('payment-section');
+    if (step === 3 && !selectedTime) {
+        alert('Please select a time first.');
+        return;
+    }
 
-    if (currentStep) currentStep.classList.add('active');
-    if (paymentSection) paymentSection.style.display = (step === 3) ? 'block' : 'none';
+    if (step === 4 && !selectedService) {
+        alert('Please select a session type first.');
+        return;
+    }
+
+    if (step === 5) {
+        const clientName = document.getElementById('client-name');
+        const clientEmail = document.getElementById('client-email');
+        const terms = document.getElementById('terms');
+
+        const nameValue = clientName ? clientName.value.trim() : '';
+        const emailValue = clientEmail ? clientEmail.value.trim() : '';
+        const acceptedTerms = terms ? terms.checked : false;
+
+        if (!nameValue) {
+            alert('Please enter your name.');
+            return;
+        }
+
+        if (!emailValue || !emailValue.includes('@')) {
+            alert('Please enter a valid email.');
+            return;
+        }
+
+        if (!acceptedTerms) {
+            alert('Please accept the Terms & Conditions.');
+            return;
+        }
+
+        updateFinalSummary();
+    }
+
+    document.querySelectorAll('.step').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    const nextStepSection = document.getElementById(`step${step}`);
+    if (nextStepSection) {
+        nextStepSection.classList.add('active');
+    }
 }
 
 // ---------------- TERMS POPUP ----------------
-const termsCheckbox = document.getElementById("terms");
-const popup = document.getElementById("termsPopup");
-const acceptBtn = document.getElementById("acceptTerms");
-const scrollBox = document.getElementById("termsScroll");
+const termsCheckbox = document.getElementById('terms');
+const popup = document.getElementById('termsPopup');
+const acceptBtn = document.getElementById('acceptTerms');
+const scrollBox = document.getElementById('termsScroll');
 
 if (termsCheckbox && popup && acceptBtn && scrollBox) {
-    termsCheckbox.addEventListener("click", function(e) {
+    termsCheckbox.addEventListener('click', function (e) {
         if (!this.checked) {
             e.preventDefault();
-            popup.style.display = "flex";
+            popup.style.display = 'flex';
         }
     });
 
-    scrollBox.addEventListener("scroll", () => {
+    scrollBox.addEventListener('scroll', () => {
         if (scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
             acceptBtn.disabled = false;
         }
     });
 
-    acceptBtn.addEventListener("click", () => {
+    acceptBtn.addEventListener('click', () => {
         termsCheckbox.checked = true;
-        popup.style.display = "none";
-        localStorage.setItem("termsAccepted", "true");
+        popup.style.display = 'none';
+        localStorage.setItem('termsAccepted', 'true');
     });
 
-    window.addEventListener("click", (e) => {
+    window.addEventListener('click', (e) => {
         if (e.target === popup) {
-            popup.style.display = "none";
+            popup.style.display = 'none';
         }
     });
 
-    window.addEventListener("DOMContentLoaded", () => {
-        if (localStorage.getItem("termsAccepted") === "true") {
+    window.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('termsAccepted') === 'true') {
             termsCheckbox.checked = true;
         }
     });
 }
 
 // ---------------- PAGE LOAD ----------------
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
     generateCalendar();
+    renderTimes();
+    updateLiveSummary();
 });

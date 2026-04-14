@@ -485,212 +485,81 @@ nav ul li a:hover {
         text-align: center;
     }
 }
-/* BOOKING PAGE */
-/* BOOKING MODERN */
-.booking-modern {
-    padding: 60px 20px;
-    background: #f5faff;
-    text-align: center;
-}
-
 .booking-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
     gap: 30px;
-    max-width: 1000px;
-    margin: 40px auto;
-    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
 }
 
-/* MEDIA QUERY */
-@media (max-width: 768px) {
-    .booking-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-}
-
-.booking-left, .booking-right {
+.booking-left,
+.booking-right {
     background: white;
     padding: 30px;
-    border-radius: 15px;
-    flex: 1;
-    min-width: 300px;
+    border-radius: 18px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    min-width: 0;
 }
 
-.step {
-    display: none;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.step.active {
-    display: flex;
-}
-
-.booking-left input,
-.booking-left select {
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.booking-left button {
-    padding: 12px;
-    border: none;
-    background: #6fcf97;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.booking-left button:hover {
-    background: #57b87e;
-}
-
-.terms {
-    font-size: 14px;
-    text-align: left;
-}
-
-.summary {
-    text-align: left;
-}
-
-.booking-right h3 {
-    margin-bottom: 20px;
-}
-
-.payment label {
-    display: block;
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.confirm-btn {
+#calendar {
     width: 100%;
-    padding: 15px;
+    background: #f9fcfb;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #e5ece8;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-weight: 600;
+    color: #243746;
+}
+
+.calendar-header button {
+    border: none;
     background: #6fcf97;
     color: white;
-    border: none;
+    width: 42px;
+    height: 42px;
     border-radius: 10px;
-    font-size: 16px;
-    margin-top: 20px;
     cursor: pointer;
+    font-size: 18px;
 }
 
-.confirm-btn:hover {
-    background: #57b87e;
-}
-#calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-bottom: 20px;
-}
-/* CALENDAR BOX */
-#calendar {
-    flex: 1;
-    max-width: 380px;
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-     width: 350px;
-    min-height: 300px;
-}
-
-/* MONTH TITLE */
-.calendar-header {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-/* DAYS OF WEEK */
 .calendar-days {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    font-size: 13px;
-    margin-bottom: 8px;
-    color: #888;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+    text-align: center;
 }
-/* GRID */
+
+.calendar-days div {
+    font-size: 14px;
+    font-weight: 600;
+    color: #7a858d;
+}
+
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-}
-
-/* DAY BUTTON */
-.calendar-grid button {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #e9f7ef;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.calendar-grid button:hover {
-    background: #c8efd8;
-}
-
-.calendar-grid button.selected {
-    background: #6fcf97;
-    color: white;
-}
-
-.calendar-grid button:disabled {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-/* TIMES */
-#available-times {
-    flex: 1;
-    max-width: 380px;
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        border: 1px solid #ccc;
-    width: 350px;
-    min-height: 300px;
-}
-
-.time-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 10px;
-    margin-top: 10px;
+    width: 100%;
 }
 
-.time-grid label {
-    display: block;
-    padding: 10px;
-    border-radius: 8px;
-    background: #e9f7ef;
-    text-align: center;
-    cursor: pointer;
-}
-
-.time-grid input {
-    display: none;
-}
-
-.time-grid input:checked + label {
-    background: #6fcf97;
-    color: white;
-}
 .calendar-grid button {
-    padding: 10px;
+    padding: 12px 6px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     background: #e9f7ef;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: 0.2s;
 }
 
 .calendar-grid button:hover:not(:disabled) {
@@ -705,37 +574,181 @@ nav ul li a:hover {
 .calendar-grid button:disabled {
     background: #f8d7da;
     color: #721c24;
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
 }
-#available-times ul {
-    list-style: none;
-    padding-left: 0;
-     max-height: 300px;
-    overflow-y: auto;
-}
-#available-times li {
-    margin-bottom: 10px;
-}
-#available-times input[type="radio"] {
-    margin-right: 10px;
-}
-.calendar-times {
-     display: flex;
-    gap: 25px;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
+.booking-modern {
+    padding: 60px 20px;
+    background: #f3f7f5;
 }
 
-/* TERMS POPUP */
+.booking-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.booking-header h1 {
+    font-size: 42px;
+    color: #243746;
+    margin-bottom: 8px;
+}
+
+.booking-header p {
+    color: #5f6b73;
+    font-size: 17px;
+}
+
+.step {
+    display: none;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.step.active {
+    display: flex;
+}
+
+.step h2,
+.booking-right h3 {
+    color: #243746;
+    margin-bottom: 10px;
+}
+
+.booking-left input,
+.booking-left select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #d6d6d6;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.booking-left input:focus,
+.booking-left select:focus {
+    border-color: #6fbf8f;
+    outline: none;
+    box-shadow: 0 0 5px rgba(111, 191, 143, 0.3);
+}
+
+.booking-left button,
+.confirm-btn {
+    padding: 13px 18px;
+    border: none;
+    background: #6fcf97;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.booking-left button:hover,
+.confirm-btn:hover {
+    background: #57b87e;
+}
+
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.back-btn {
+    background: #dfe8e3 !important;
+    color: #243746 !important;
+}
+
+.back-btn:hover {
+    background: #cfdad4 !important;
+}
+
+#available-times {
+    width: 100%;
+    background: #f9fcfb;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #e5ece8;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.time-option {
+    padding: 12px;
+    border-radius: 10px;
+    background: #e9f7ef;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    border: none;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    color: #243746;
+}
+
+.time-option:hover {
+    background: #c8efd8;
+}
+
+.time-option.selected {
+    background: #6fcf97;
+    color: white;
+}
+
+.session-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.session-card {
+    background: #f9fcfb !important;
+    color: #243746 !important;
+    border: 1px solid #dfe8e3 !important;
+    padding: 18px !important;
+    border-radius: 14px !important;
+    font-weight: 600 !important;
+    text-align: center;
+}
+
+.session-card.selected {
+    background: #6fcf97 !important;
+    color: white !important;
+    border-color: #6fcf97 !important;
+}
+
+.summary-card,
+.final-summary {
+    background: #f9fcfb;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: left;
+    border: 1px solid #e5ece8;
+}
+
+.summary-card p,
+.final-summary p {
+    margin-bottom: 12px;
+    color: #2f3e46;
+}
+
+.terms {
+    font-size: 14px;
+    text-align: left;
+    color: #444;
+    line-height: 1.7;
+}
+
 .terms-popup {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
     display: none;
     justify-content: center;
     align-items: center;
@@ -756,8 +769,9 @@ nav ul li a:hover {
     overflow-y: auto;
     text-align: left;
     margin: 20px 0;
-    padding-right: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
 .terms-content button {
@@ -767,35 +781,55 @@ nav ul li a:hover {
     color: white;
     border-radius: 10px;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
 }
 
 .terms-content button:disabled {
     background: #ccc;
     cursor: not-allowed;
 }
-/* FOCUS EFFECT */
-.booking-form input:focus,
-.booking-form textarea:focus {
-    border-color: #6fbf8f;
-    outline: none;
-    box-shadow: 0 0 5px rgba(111, 191, 143, 0.3);
+
+@media (max-width: 900px) {
+    .booking-container {
+        grid-template-columns: 1fr;
+    }
 }
 
+@media (max-width: 768px) {
+    .booking-modern {
+        padding: 40px 15px;
+    }
 
-.booking-form button {
-    padding: 12px;
-    border: none;
-    background-color: #6fbf8f;
-    color: white;
-    cursor: pointer;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: 0.3s;
+    .booking-header h1 {
+        font-size: 34px;
+    }
+
+    .session-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .time-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .step-buttons {
+        flex-direction: column;
+    }
+
+    .calendar-grid {
+        gap: 8px;
+    }
+
+    .calendar-grid button {
+        padding: 10px 4px;
+        font-size: 14px;
+    }
+
+    .calendar-days div {
+        font-size: 12px;
+    }
 }
 
-.booking-form button:hover {
-    background-color: #5aa87a;
-}
 /* CONTACT PAGE */
 .contact {
     padding: 60px 20px 80px;
