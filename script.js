@@ -108,10 +108,12 @@ function updateLiveSummary() {
     const liveDate = document.getElementById('live-date');
     const liveTime = document.getElementById('live-time');
     const liveService = document.getElementById('live-service');
+    const livePrice = document.getElementById('live-price');
 
     if (liveDate) liveDate.innerText = selectedDate || 'Not selected';
     if (liveTime) liveTime.innerText = selectedTime || 'Not selected';
     if (liveService) liveService.innerText = selectedService || 'Not selected';
+    if (livePrice) livePrice.innerText = '€50';
 }
 
 function updateFinalSummary() {
@@ -123,7 +125,9 @@ function updateFinalSummary() {
     const sumService = document.getElementById('sum-service');
     const sumName = document.getElementById('sum-name');
     const sumEmail = document.getElementById('sum-email');
-
+    const sumPrice = document.getElementById('sum-price');
+    
+    if (sumPrice) sumPrice.innerText = '€50';
     if (sumDate) sumDate.innerText = selectedDate || '-';
     if (sumTime) sumTime.innerText = selectedTime || '-';
     if (sumService) sumService.innerText = selectedService || '-';
