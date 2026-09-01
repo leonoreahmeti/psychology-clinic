@@ -2,21 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Book Your Session | Psychology Clinic</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- ================= NAVIGATION ================= -->
+
 <nav>
+
     <div class="logo">
         <a href="index.html">
             <img src="images/logo.jpeg" alt="Logo">
         </a>
     </div>
 
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Open menu"
+    >
         <span></span>
         <span></span>
         <span></span>
@@ -29,131 +42,559 @@
         <li><a href="contact.html">Contact</a></li>
         <li><a href="news.html">News</a></li>
     </ul>
+
 </nav>
 
+
+<!-- ================= BOOKING ================= -->
+
 <section class="booking-modern">
+
     <div class="booking-header">
+
         <h1>Book Your Session</h1>
-        <p>Select a date, time, and session type</p>
+
+        <p>
+            Select a date, time, and session type
+        </p>
+
     </div>
+
 
     <div class="booking-container">
 
+
+        <!-- ================= LEFT ================= -->
+
         <div class="booking-left">
 
+
+            <!-- ================= STEP 1 ================= -->
+
             <div class="step active" id="step1">
+
                 <h2>Select a Date</h2>
+
                 <div id="calendar"></div>
 
                 <div class="step-buttons">
-                    <button type="button" onclick="goToStep(2)">Next</button>
+
+                    <button
+                        type="button"
+                        onclick="goToStep(2)"
+                    >
+                        Next
+                    </button>
+
                 </div>
+
             </div>
+
+
+            <!-- ================= STEP 2 ================= -->
 
             <div class="step" id="step2">
+
                 <h2>Select a Time</h2>
+
                 <div id="available-times">
-                    <div id="time-list" class="time-grid"></div>
+
+                    <div
+                        id="time-list"
+                        class="time-grid"
+                    ></div>
+
                 </div>
 
+
                 <div class="step-buttons">
-                    <button type="button" class="back-btn" onclick="goToStep(1)">Back</button>
-                    <button type="button" onclick="goToStep(3)">Next</button>
+
+                    <button
+                        type="button"
+                        class="back-btn"
+                        onclick="goToStep(1)"
+                    >
+                        Back
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="goToStep(3)"
+                    >
+                        Next
+                    </button>
+
                 </div>
+
             </div>
+
+
+            <!-- ================= STEP 3 ================= -->
 
             <div class="step" id="step3">
-    <h2>Select Session Type</h2>
 
-    <div class="session-grid">
-        <button type="button" class="session-card" onclick="selectSession('Individual Therapy', this)">Individual Therapy</button>
-        <button type="button" class="session-card" onclick="selectSession('Group Therapy', this)">Group Therapy</button>
-        <button type="button" class="session-card" onclick="selectSession('Child & Adolescent Therapy', this)">Child & Adolescent Therapy</button>
-        <button type="button" class="session-card" onclick="selectSession('Parenting support', this)">parenting support</button>
-        <button type="button" class="session-card" onclick="selectSession('Workplace Mental Health', this)">Workplace Mental Health</button>
-        <button type="button" class="session-card" onclick="selectSession('Online Sessions', this)">Online Sessions</button>
-    </div>
+                <h2>Select Session Type</h2>
 
-    <div class="step-buttons">
-        <button type="button" class="back-btn" onclick="goToStep(2)">Back</button>
-        <button type="button" onclick="goToStep(4)">Next</button>
-    </div>
-</div>
+
+                <div class="session-grid">
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        onclick="selectSession('Individual Therapy', this)"
+                    >
+                        Individual Therapy
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        onclick="selectSession('Group Therapy', this)"
+                    >
+                        Group Therapy
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        onclick="selectSession('Child & Adolescent Therapy', this)"
+                    >
+                        Child & Adolescent Therapy
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        onclick="selectSession('Parenting support', this)"
+                    >
+                        Parenting Support
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        onclick="selectSession('Workplace Mental Health', this)"
+                    >
+                        Workplace Mental Health
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        onclick="selectSession('Online Sessions', this)"
+                    >
+                        Online Sessions
+                    </button>
+
+                </div>
+
+
+                <div class="step-buttons">
+
+                    <button
+                        type="button"
+                        class="back-btn"
+                        onclick="goToStep(2)"
+                    >
+                        Back
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="goToStep(4)"
+                    >
+                        Next
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= STEP 4 ================= -->
 
             <div class="step" id="step4">
+
                 <h2>Your Details</h2>
 
-                <input type="text" id="client-name" placeholder="Your name">
-                <input type="email" id="client-email" placeholder="Your email">
+
+                <input
+                    type="text"
+                    id="client-name"
+                    placeholder="Your name"
+                    autocomplete="name"
+                >
+
+
+                <input
+                    type="email"
+                    id="client-email"
+                    placeholder="Your email"
+                    autocomplete="email"
+                >
+
 
                 <label class="terms">
-                    <input type="checkbox" id="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                    >
+
                     I agree to the
-                    <a href="terms.html" target="_blank">Terms & Conditions</a>
+
+                    <a
+                        href="terms.html"
+                        target="_blank"
+                    >
+                        Terms & Conditions
+                    </a>
+
                 </label>
 
+
                 <div class="step-buttons">
-                    <button type="button" class="back-btn" onclick="goToStep(3)">Back</button>
-                    <button type="button" onclick="goToStep(5)">Next</button>
+
+                    <button
+                        type="button"
+                        class="back-btn"
+                        onclick="goToStep(3)"
+                    >
+                        Back
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="goToStep(5)"
+                    >
+                        Next
+                    </button>
+
                 </div>
+
             </div>
+
+
+            <!-- ================= STEP 5 ================= -->
 
             <div class="step" id="step5">
+
                 <h2>Booking Summary</h2>
 
+
                 <div class="final-summary">
-                    <p><strong>Date:</strong> <span id="sum-date">-</span></p>
-                    <p><strong>Time:</strong> <span id="sum-time">-</span></p>
-                    <p><strong>Session:</strong> <span id="sum-service">-</span></p>
-                    <p><strong>Name:</strong> <span id="sum-name">-</span></p>
-                    <p><strong>Email:</strong> <span id="sum-email">-</span></p>
-                    <p><strong>Therapist:</strong> Nafie Sylejmani</p>
-                    <p><strong>Duration:</strong> 50 minutes</p>
-                    <p><strong>Price:</strong> <span id="live-price">€50</span></p>
+
+                    <p>
+                        <strong>Date:</strong>
+                        <span id="sum-date">-</span>
+                    </p>
+
+
+                    <p>
+                        <strong>Time:</strong>
+                        <span id="sum-time">-</span>
+                    </p>
+
+
+                    <p>
+                        <strong>Session:</strong>
+                        <span id="sum-service">-</span>
+                    </p>
+
+
+                    <p>
+                        <strong>Name:</strong>
+                        <span id="sum-name">-</span>
+                    </p>
+
+
+                    <p>
+                        <strong>Email:</strong>
+                        <span id="sum-email">-</span>
+                    </p>
+
+
+                    <p>
+                        <strong>Therapist:</strong>
+                        Nafie Sylejmani
+                    </p>
+
+
+                    <p>
+                        <strong>Duration:</strong>
+                        50 minutes
+                    </p>
+
+
+                    <p>
+                        <strong>Price:</strong>
+                        <span id="sum-price">€50</span>
+                    </p>
+
                 </div>
+
 
                 <div class="step-buttons">
-                    <button type="button" class="back-btn" onclick="goToStep(4)">Back</button>
-                    <button type="button">Continue to Payment</button>
+
+                    <button
+                        type="button"
+                        class="back-btn"
+                        onclick="goToStep(4)"
+                    >
+                        Back
+                    </button>
+
+
+                    <!-- IMPORTANT:
+                         This button ONLY calls submitBooking()
+                    -->
+
+                    <button
+                        type="button"
+                        id="continuePaymentBtn"
+                        onclick="submitBooking()"
+                    >
+                        Continue to Payment
+                    </button>
+
                 </div>
+
             </div>
 
         </div>
+
+
+        <!-- ================= RIGHT SUMMARY ================= -->
 
         <div class="booking-right">
+
             <h3>Your Booking</h3>
+
+
             <div class="summary-card">
-                <p><strong>Date:</strong> <span id="live-date">Not selected</span></p>
-                <p><strong>Time:</strong> <span id="live-time">Not selected</span></p>
-                <p><strong>Session:</strong> <span id="live-service">Not selected</span></p>
-                <p><strong>Therapist:</strong> Nafie Sylejmani</p>
-                <p><strong>Duration:</strong> 50 minutes</p>
+
+                <p>
+                    <strong>Date:</strong>
+                    <span id="live-date">
+                        Not selected
+                    </span>
+                </p>
+
+
+                <p>
+                    <strong>Time:</strong>
+                    <span id="live-time">
+                        Not selected
+                    </span>
+                </p>
+
+
+                <p>
+                    <strong>Session:</strong>
+                    <span id="live-service">
+                        Not selected
+                    </span>
+                </p>
+
+
+                <p>
+                    <strong>Therapist:</strong>
+                    Nafie Sylejmani
+                </p>
+
+
+                <p>
+                    <strong>Duration:</strong>
+                    50 minutes
+                </p>
+
             </div>
+
         </div>
 
     </div>
+
 </section>
 
-<div id="termsPopup" class="terms-popup">
+
+<!-- ================= TERMS POPUP ================= -->
+
+<div
+    id="termsPopup"
+    class="terms-popup"
+>
+
     <div class="terms-content">
+
         <h2>Terms & Conditions</h2>
-        <div class="terms-scroll" id="termsScroll">
-            <p>By booking a session, you agree that this platform only connects you with a licensed psychologist.</p>
-            <p>Sessions are not emergency services.</p>
-            <p>All payments are non-refundable unless the therapist does not attend.</p>
-            <p>Your data is kept confidential.</p>
-            <p>You must be 18+ to use this service.</p>
-            <p>More legal terms apply...</p>
-            <p style="margin-top:20px;">(Scroll to bottom to accept)</p>
+
+
+        <div
+            class="terms-scroll"
+            id="termsScroll"
+        >
+
+            <p>
+                By booking a session, you agree that this platform only connects you with a licensed psychologist.
+            </p>
+
+            <p>
+                Sessions are not emergency services.
+            </p>
+
+            <p>
+                All payments are non-refundable unless the therapist does not attend.
+            </p>
+
+            <p>
+                Your data is kept confidential.
+            </p>
+
+            <p>
+                You must be 18+ to use this service.
+            </p>
+
+            <p>
+                More legal terms apply...
+            </p>
+
+            <p style="margin-top:20px;">
+                (Scroll to bottom to accept)
+            </p>
+
         </div>
-        <button id="acceptTerms" disabled>I Agree</button>
+
+
+        <button
+            type="button"
+            id="acceptTerms"
+            disabled
+        >
+            I Agree
+        </button>
+
     </div>
+
 </div>
 
+
+<!-- ================= BOOKING SUCCESS POPUP ================= -->
+
+<div
+    id="bookingSuccessPopup"
+    class="booking-success-popup"
+>
+
+    <div class="booking-success-box">
+
+
+        <button
+            type="button"
+            class="success-close"
+            onclick="closeBookingSuccess()"
+        >
+            &times;
+        </button>
+
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+
+        <h2>
+            Booking Confirmed!
+        </h2>
+
+
+        <p class="success-message">
+            Your session has been successfully booked.
+        </p>
+
+
+        <div class="success-details">
+
+
+            <div>
+
+                <span>Date</span>
+
+                <strong id="success-date">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Time</span>
+
+                <strong id="success-time">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Session</span>
+
+                <strong id="success-service">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Email</span>
+
+                <strong id="success-email">
+                    -
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="success-done-btn"
+            onclick="closeBookingSuccess()"
+        >
+            Done
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
-    <p>© 2026 Psychology Clinic | All rights reserved</p>
+
+    <p>
+        © 2026 Psychology Clinic | All rights reserved
+    </p>
+
 </footer>
 
+
 <script src="script.js"></script>
+
 </body>
 </html>
