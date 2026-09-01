@@ -23,29 +23,128 @@ nav {
 }
 
 /* NAVBAR LINKS CLEAN */
-ul {
-    display: block;
+/* ================= NAVBAR MENU ================= */
 
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
+/* HAMBURGER BUTTON */
+
+.hamburger {
+    width: 46px;
+    height: 46px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    padding: 0;
+}
+
+.hamburger span {
+    display: block;
+    width: 27px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        width 0.3s ease;
+}
+
+/* MENU */
 
 nav ul {
-    display: flex;
+    position: absolute;
+
+    top: 70px;
+    right: 30px;
+
+    width: 230px;
+
+    margin: 0;
+    padding: 10px 0;
+
     list-style: none;
-    gap: 25px;
+
+    background-color: #6fcf97;
+
+    border-radius: 0 0 15px 15px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+    /* Hidden initially */
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-15px);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
 }
 
+/* OPEN MENU */
+
+nav ul.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* MENU LINKS */
+
+nav ul li {
+    width: 100%;
+}
 
 nav ul li a {
+    display: block;
+
+    width: 100%;
+
+    padding: 14px 22px;
+
     color: white;
+
     text-decoration: none;
+
     font-weight: 500;
-    transition: 0.3s;
+
+    transition:
+        background-color 0.2s ease,
+        padding-left 0.2s ease;
 }
 
 nav ul li a:hover {
-    color: white;
-    opacity: 0.8; /* efekt i lehtë */
+    background-color: #57b87e;
+    padding-left: 28px;
+}
+
+/* HAMBURGER -> X */
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
 }
 
 /* LOGO */

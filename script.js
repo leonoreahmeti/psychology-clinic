@@ -348,6 +348,40 @@ if (termsCheckbox && popup && acceptBtn && scrollBox) {
     });
 }
 
+// ---------------- HAMBURGER MENU ----------------
+
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+if (hamburger && navMenu) {
+
+    // Open / close menu
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (
+            !navMenu.contains(e.target) &&
+            !hamburger.contains(e.target)
+        ) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
 // ---------------- PAGE LOAD ----------------
 window.addEventListener('DOMContentLoaded', () => {
     generateCalendar();
