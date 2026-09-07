@@ -2002,7 +2002,7 @@ if (contactForm) {
 
                 const response =
                     await fetch(
-                        'api/contact.php',
+                        ''https://psychology-clinic.xo.je/api/contact.php'',
                         {
                             method: 'POST',
 
