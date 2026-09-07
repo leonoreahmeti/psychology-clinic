@@ -8,7 +8,6 @@ const nextBtn = document.querySelector('.next');
 
 let currentIndex = 0;
 
-
 function updateSlider() {
 
     if (!cards.length) return;
@@ -21,23 +20,20 @@ function updateSlider() {
             'blur-right'
         );
 
-        card.style.opacity = 1;
+        card.style.opacity = '1';
         card.style.transform = 'scale(1)';
         card.style.filter = 'none';
-        card.style.zIndex = 1;
-
+        card.style.zIndex = '1';
 
         if (index === currentIndex) {
 
             card.classList.add('active');
 
-            card.style.zIndex = 2;
+            card.style.zIndex = '2';
             card.style.transform = 'scale(1.1)';
-            card.style.opacity = 1;
+            card.style.opacity = '1';
 
-        }
-
-        else if (
+        } else if (
             index ===
             (currentIndex - 1 + cards.length) % cards.length
         ) {
@@ -45,13 +41,11 @@ function updateSlider() {
             card.classList.add('blur-left');
 
             card.style.transform = 'scale(0.85)';
-            card.style.opacity = 0.5;
+            card.style.opacity = '0.5';
             card.style.filter = 'blur(3px)';
-            card.style.zIndex = 0;
+            card.style.zIndex = '0';
 
-        }
-
-        else if (
+        } else if (
             index ===
             (currentIndex + 1) % cards.length
         ) {
@@ -59,18 +53,16 @@ function updateSlider() {
             card.classList.add('blur-right');
 
             card.style.transform = 'scale(0.85)';
-            card.style.opacity = 0.5;
+            card.style.opacity = '0.5';
             card.style.filter = 'blur(3px)';
-            card.style.zIndex = 0;
+            card.style.zIndex = '0';
 
-        }
+        } else {
 
-        else {
-
-            card.style.opacity = 0.3;
+            card.style.opacity = '0.3';
             card.style.transform = 'scale(0.75)';
             card.style.filter = 'blur(4px)';
-            card.style.zIndex = 0;
+            card.style.zIndex = '0';
 
         }
 
@@ -78,70 +70,59 @@ function updateSlider() {
 
 }
 
-
-if (
-    cards.length > 0 &&
-    prevBtn &&
-    nextBtn
-) {
+if (cards.length > 0 && prevBtn && nextBtn) {
 
     cards.forEach(card => {
 
         card.addEventListener('click', () => {
 
-            currentIndex =
-                parseInt(
-                    card.dataset.index,
-                    10
-                );
+            const index = parseInt(
+                card.dataset.index,
+                10
+            );
+
+            if (!Number.isNaN(index)) {
+                currentIndex = index;
+            }
 
             updateSlider();
 
-            window.location.href =
-                'services.html';
+            window.location.href = 'services.html';
 
         });
 
     });
 
-
     prevBtn.addEventListener('click', () => {
 
         currentIndex =
-            (currentIndex - 1 + cards.length)
-            % cards.length;
+            (currentIndex - 1 + cards.length) % cards.length;
 
         updateSlider();
 
     });
-
 
     nextBtn.addEventListener('click', () => {
 
         currentIndex =
-            (currentIndex + 1)
-            % cards.length;
+            (currentIndex + 1) % cards.length;
 
         updateSlider();
 
     });
 
-
     setInterval(() => {
 
         currentIndex =
-            (currentIndex + 1)
-            % cards.length;
+            (currentIndex + 1) % cards.length;
 
         updateSlider();
 
     }, 4000);
 
-
     updateSlider();
 
 }
-
 
 
 // ======================================================
@@ -157,54 +138,39 @@ const closeModal =
 const contactModal =
     document.getElementById('contactModal');
 
+if (openModal && contactModal) {
 
-if (
-    openModal &&
-    closeModal &&
-    contactModal
-) {
+    openModal.addEventListener('click', () => {
 
-    openModal.addEventListener(
-        'click',
-        () => {
+        contactModal.classList.add('active');
 
-            contactModal.classList.add(
-                'active'
-            );
-
-        }
-    );
-
-
-    closeModal.addEventListener(
-        'click',
-        () => {
-
-            contactModal.classList.remove(
-                'active'
-            );
-
-        }
-    );
-
-
-    window.addEventListener(
-        'click',
-        e => {
-
-            if (e.target === contactModal) {
-
-                contactModal.classList.remove(
-                    'active'
-                );
-
-            }
-
-        }
-    );
+    });
 
 }
 
+if (closeModal && contactModal) {
+
+    closeModal.addEventListener('click', () => {
+
+        contactModal.classList.remove('active');
+
+    });
+
+}
+
+if (contactModal) {
+
+    window.addEventListener('click', event => {
+
+        if (event.target === contactModal) {
+
+            contactModal.classList.remove('active');
+
+        }
+
+    });
+
+}
 
 
 // ======================================================
@@ -217,21 +183,15 @@ const calendarEl =
 const timeListEl =
     document.getElementById('time-list');
 
-
 let bookedBookings = [];
 
 let selectedDate = null;
-
 let selectedTime = null;
-
 let selectedService = null;
 
 let currentDate = new Date();
 
-
-// Prevent double booking request
 let isSubmittingBooking = false;
-
 
 
 // ======================================================
@@ -239,7 +199,6 @@ let isSubmittingBooking = false;
 // ======================================================
 
 const allTimes = [
-
     '14:00',
     '14:30',
     '15:00',
@@ -255,9 +214,7 @@ const allTimes = [
     '20:00',
     '20:30',
     '21:00'
-
 ];
-
 
 
 // ======================================================
@@ -268,14 +225,12 @@ async function loadBookings() {
 
     try {
 
-        const response =
-            await fetch(
-    'https://psychology-clinic.xo.je/api/get_bookings.php',
-                {
-                    cache: 'no-store'
-                }
-            );
-
+        const response = await fetch(
+            'https://psychology-clinic.xo.je/api/get_bookings.php',
+            {
+                cache: 'no-store'
+            }
+        );
 
         if (!response.ok) {
 
@@ -285,32 +240,24 @@ async function loadBookings() {
 
         }
 
-
-        const data =
-            await response.json();
-
+        const data = await response.json();
 
         if (Array.isArray(data)) {
 
             bookedBookings = data;
 
-        }
-
-        else {
+        } else {
 
             bookedBookings = [];
 
         }
-
 
         console.log(
             'Bookings from database:',
             bookedBookings
         );
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
             'Error loading bookings:',
@@ -324,7 +271,6 @@ async function loadBookings() {
 }
 
 
-
 // ======================================================
 // LIVE SUMMARY
 // ======================================================
@@ -332,48 +278,36 @@ async function loadBookings() {
 function updateLiveSummary() {
 
     const liveDate =
-        document.getElementById(
-            'live-date'
-        );
+        document.getElementById('live-date');
 
     const liveTime =
-        document.getElementById(
-            'live-time'
-        );
+        document.getElementById('live-time');
 
     const liveService =
-        document.getElementById(
-            'live-service'
-        );
+        document.getElementById('live-service');
 
     if (liveDate) {
 
         liveDate.innerText =
-            selectedDate ||
-            'Not selected';
+            selectedDate || 'Not selected';
 
     }
-
 
     if (liveTime) {
 
         liveTime.innerText =
-            selectedTime ||
-            'Not selected';
+            selectedTime || 'Not selected';
 
     }
-
 
     if (liveService) {
 
         liveService.innerText =
-            selectedService ||
-            'Not selected';
+            selectedService || 'Not selected';
 
     }
 
 }
-
 
 
 // ======================================================
@@ -383,46 +317,28 @@ function updateLiveSummary() {
 function updateFinalSummary() {
 
     const clientName =
-        document.getElementById(
-            'client-name'
-        );
+        document.getElementById('client-name');
 
     const clientEmail =
-        document.getElementById(
-            'client-email'
-        );
-
+        document.getElementById('client-email');
 
     const sumDate =
-        document.getElementById(
-            'sum-date'
-        );
+        document.getElementById('sum-date');
 
     const sumTime =
-        document.getElementById(
-            'sum-time'
-        );
+        document.getElementById('sum-time');
 
     const sumService =
-        document.getElementById(
-            'sum-service'
-        );
+        document.getElementById('sum-service');
 
     const sumName =
-        document.getElementById(
-            'sum-name'
-        );
+        document.getElementById('sum-name');
 
     const sumEmail =
-        document.getElementById(
-            'sum-email'
-        );
+        document.getElementById('sum-email');
 
     const sumPrice =
-        document.getElementById(
-            'sum-price'
-        );
-
+        document.getElementById('sum-price');
 
     if (sumDate) {
 
@@ -431,7 +347,6 @@ function updateFinalSummary() {
 
     }
 
-
     if (sumTime) {
 
         sumTime.innerText =
@@ -439,14 +354,12 @@ function updateFinalSummary() {
 
     }
 
-
     if (sumService) {
 
         sumService.innerText =
             selectedService || '-';
 
     }
-
 
     if (sumName) {
 
@@ -457,7 +370,6 @@ function updateFinalSummary() {
 
     }
 
-
     if (sumEmail) {
 
         sumEmail.innerText =
@@ -466,7 +378,6 @@ function updateFinalSummary() {
                 : '-';
 
     }
-
 
     if (sumPrice) {
 
@@ -477,7 +388,6 @@ function updateFinalSummary() {
 }
 
 
-
 // ======================================================
 // CALENDAR
 // ======================================================
@@ -486,13 +396,11 @@ function generateCalendar() {
 
     if (!calendarEl) return;
 
-
     const year =
         currentDate.getFullYear();
 
     const month =
         currentDate.getMonth();
-
 
     const daysInMonth =
         new Date(
@@ -500,7 +408,6 @@ function generateCalendar() {
             month + 1,
             0
         ).getDate();
-
 
     const today = new Date();
 
@@ -511,11 +418,10 @@ function generateCalendar() {
         0
     );
 
-
     calendarEl.innerHTML = '';
 
 
-    // ---------------- HEADER ----------------
+    // HEADER
 
     const header =
         document.createElement('div');
@@ -529,49 +435,38 @@ function generateCalendar() {
         document.createElement('button');
 
     prev.type = 'button';
-
     prev.textContent = '<';
 
+    prev.addEventListener('click', () => {
 
-    prev.addEventListener(
-        'click',
-        () => {
+        currentDate.setMonth(
+            currentDate.getMonth() - 1
+        );
 
-            currentDate.setMonth(
-                currentDate.getMonth() - 1
-            );
+        generateCalendar();
 
-            generateCalendar();
-
-        }
-    );
+    });
 
 
     const next =
         document.createElement('button');
 
     next.type = 'button';
-
     next.textContent = '>';
 
+    next.addEventListener('click', () => {
 
-    next.addEventListener(
-        'click',
-        () => {
+        currentDate.setMonth(
+            currentDate.getMonth() + 1
+        );
 
-            currentDate.setMonth(
-                currentDate.getMonth() + 1
-            );
+        generateCalendar();
 
-            generateCalendar();
-
-        }
-    );
+    });
 
 
     const title =
         document.createElement('span');
-
 
     title.textContent =
         currentDate.toLocaleString(
@@ -584,16 +479,13 @@ function generateCalendar() {
 
 
     header.appendChild(prev);
-
     header.appendChild(title);
-
     header.appendChild(next);
 
     calendarEl.appendChild(header);
 
 
-
-    // ---------------- DAYS ----------------
+    // DAYS
 
     const daysRow =
         document.createElement('div');
@@ -601,7 +493,6 @@ function generateCalendar() {
     daysRow.classList.add(
         'calendar-days'
     );
-
 
     [
         'Mon',
@@ -622,12 +513,10 @@ function generateCalendar() {
 
     });
 
-
     calendarEl.appendChild(daysRow);
 
 
-
-    // ---------------- GRID ----------------
+    // GRID
 
     const grid =
         document.createElement('div');
@@ -636,12 +525,10 @@ function generateCalendar() {
         'calendar-grid'
     );
 
-
     calendarEl.appendChild(grid);
 
 
-
-    // ---------------- DAYS ----------------
+    // DAYS
 
     for (
         let day = 1;
@@ -652,13 +539,10 @@ function generateCalendar() {
         const dateStr =
             `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-
         const btn =
             document.createElement('button');
 
-
         btn.type = 'button';
-
         btn.textContent = day;
 
 
@@ -669,7 +553,6 @@ function generateCalendar() {
                 day
             );
 
-
         thisDate.setHours(
             0,
             0,
@@ -678,15 +561,11 @@ function generateCalendar() {
         );
 
 
-        // Past date
-
         if (thisDate < today) {
 
             btn.disabled = true;
 
-        }
-
-        else {
+        } else {
 
             btn.addEventListener(
                 'click',
@@ -697,9 +576,6 @@ function generateCalendar() {
 
                     selectedTime =
                         null;
-
-
-                    // Remove previous date selection
 
                     calendarEl
                         .querySelectorAll(
@@ -713,13 +589,9 @@ function generateCalendar() {
 
                         });
 
-
-                    // Select this date
-
                     btn.classList.add(
                         'selected'
                     );
-
 
                     renderTimes();
 
@@ -731,8 +603,6 @@ function generateCalendar() {
         }
 
 
-        // Keep selected date selected
-
         if (
             selectedDate === dateStr
         ) {
@@ -743,13 +613,11 @@ function generateCalendar() {
 
         }
 
-
         grid.appendChild(btn);
 
     }
 
 }
-
 
 
 // ======================================================
@@ -760,9 +628,7 @@ function renderTimes() {
 
     if (!timeListEl) return;
 
-
     timeListEl.innerHTML = '';
-
 
     if (!selectedDate) {
 
@@ -773,14 +639,9 @@ function renderTimes() {
 
     }
 
+    const now = new Date();
 
-    const now =
-        new Date();
-
-
-    const today =
-        new Date();
-
+    const today = new Date();
 
     const todayString =
         `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
@@ -788,37 +649,26 @@ function renderTimes() {
 
     allTimes.forEach(time => {
 
-
-        // ==========================================
-        // CHECK DATABASE BOOKING
-        // ==========================================
-
         const isBooked =
             bookedBookings.some(
                 booking => {
 
                     return (
-                        String(booking.date)
-                        === String(selectedDate)
+                        String(booking.date) ===
+                        String(selectedDate)
 
                         &&
 
                         String(booking.time)
-                        .substring(0, 5)
-                        === String(time)
+                            .substring(0, 5) ===
+                        String(time)
                     );
 
                 }
             );
 
 
-
-        // ==========================================
-        // CHECK PAST TIME
-        // ==========================================
-
         let isPastTime = false;
-
 
         if (
             selectedDate === todayString
@@ -828,14 +678,10 @@ function renderTimes() {
                 hours,
                 minutes
             ] =
-                time
-                    .split(':')
-                    .map(Number);
-
+                time.split(':').map(Number);
 
             const slotTime =
                 new Date();
-
 
             slotTime.setHours(
                 hours,
@@ -844,10 +690,7 @@ function renderTimes() {
                 0
             );
 
-
-            if (
-                slotTime <= now
-            ) {
+            if (slotTime <= now) {
 
                 isPastTime = true;
 
@@ -856,25 +699,14 @@ function renderTimes() {
         }
 
 
-
-        // ==========================================
-        // CREATE BUTTON
-        // ==========================================
-
         const btn =
             document.createElement('button');
-
 
         btn.type = 'button';
 
         btn.className =
             'time-option';
 
-
-
-        // ==========================================
-        // BOOKED
-        // ==========================================
 
         if (isBooked) {
 
@@ -889,12 +721,6 @@ function renderTimes() {
 
         }
 
-
-
-        // ==========================================
-        // PASSED
-        // ==========================================
-
         else if (isPastTime) {
 
             btn.textContent =
@@ -908,17 +734,10 @@ function renderTimes() {
 
         }
 
-
-
-        // ==========================================
-        // AVAILABLE
-        // ==========================================
-
         else {
 
             btn.textContent =
                 time;
-
 
             if (
                 selectedTime === time
@@ -930,14 +749,12 @@ function renderTimes() {
 
             }
 
-
             btn.addEventListener(
                 'click',
                 () => {
 
                     selectedTime =
                         time;
-
 
                     timeListEl
                         .querySelectorAll(
@@ -951,11 +768,9 @@ function renderTimes() {
 
                         });
 
-
                     btn.classList.add(
                         'selected'
                     );
-
 
                     updateLiveSummary();
 
@@ -964,13 +779,11 @@ function renderTimes() {
 
         }
 
-
         timeListEl.appendChild(btn);
 
     });
 
 }
-
 
 
 // ======================================================
@@ -985,7 +798,6 @@ function selectSession(
     selectedService =
         service;
 
-
     document
         .querySelectorAll(
             '.session-card'
@@ -998,7 +810,6 @@ function selectSession(
 
         });
 
-
     if (element) {
 
         element.classList.add(
@@ -1007,11 +818,9 @@ function selectSession(
 
     }
 
-
     updateLiveSummary();
 
 }
-
 
 
 // ======================================================
@@ -1019,11 +828,6 @@ function selectSession(
 // ======================================================
 
 function goToStep(step) {
-
-
-    // ==========================================
-    // STEP 2 = DATE REQUIRED
-    // ==========================================
 
     if (
         step === 2 &&
@@ -1039,11 +843,6 @@ function goToStep(step) {
     }
 
 
-
-    // ==========================================
-    // STEP 3 = TIME REQUIRED
-    // ==========================================
-
     if (
         step === 3 &&
         !selectedTime
@@ -1058,11 +857,6 @@ function goToStep(step) {
     }
 
 
-
-    // ==========================================
-    // STEP 4 = SERVICE REQUIRED
-    // ==========================================
-
     if (
         step === 4 &&
         !selectedService
@@ -1076,11 +870,6 @@ function goToStep(step) {
 
     }
 
-
-
-    // ==========================================
-    // STEP 5 = VALIDATE DETAILS
-    // ==========================================
 
     if (step === 5) {
 
@@ -1099,24 +888,20 @@ function goToStep(step) {
                 'terms'
             );
 
-
         const nameValue =
             clientName
                 ? clientName.value.trim()
                 : '';
-
 
         const emailValue =
             clientEmail
                 ? clientEmail.value.trim()
                 : '';
 
-
         const acceptedTerms =
             terms
                 ? terms.checked
                 : false;
-
 
 
         if (!nameValue) {
@@ -1134,7 +919,6 @@ function goToStep(step) {
             return;
 
         }
-
 
 
         if (
@@ -1157,7 +941,6 @@ function goToStep(step) {
         }
 
 
-
         if (!acceptedTerms) {
 
             alert(
@@ -1168,16 +951,10 @@ function goToStep(step) {
 
         }
 
-
         updateFinalSummary();
 
     }
 
-
-
-    // ==========================================
-    // SHOW STEP
-    // ==========================================
 
     document
         .querySelectorAll('.step')
@@ -1195,7 +972,6 @@ function goToStep(step) {
             `step${step}`
         );
 
-
     if (nextStepSection) {
 
         nextStepSection.classList.add(
@@ -1207,30 +983,21 @@ function goToStep(step) {
 }
 
 
-
 // ======================================================
 // TERMS POPUP
 // ======================================================
 
 const termsCheckbox =
-    document.getElementById(
-        'terms'
-    );
+    document.getElementById('terms');
 
 const popup =
-    document.getElementById(
-        'termsPopup'
-    );
+    document.getElementById('termsPopup');
 
 const acceptBtn =
-    document.getElementById(
-        'acceptTerms'
-    );
+    document.getElementById('acceptTerms');
 
 const scrollBox =
-    document.getElementById(
-        'termsScroll'
-    );
+    document.getElementById('termsScroll');
 
 
 if (
@@ -1240,16 +1007,13 @@ if (
     scrollBox
 ) {
 
-
-    // Open popup when trying to check
-
     termsCheckbox.addEventListener(
         'click',
-        function (e) {
+        function (event) {
 
             if (!this.checked) {
 
-                e.preventDefault();
+                event.preventDefault();
 
                 popup.style.display =
                     'flex';
@@ -1260,9 +1024,6 @@ if (
     );
 
 
-
-    // Enable accept after scrolling
-
     scrollBox.addEventListener(
         'scroll',
         () => {
@@ -1271,7 +1032,6 @@ if (
                 scrollBox.scrollTop +
                 scrollBox.clientHeight >=
                 scrollBox.scrollHeight - 5;
-
 
             if (reachedBottom) {
 
@@ -1283,9 +1043,6 @@ if (
         }
     );
 
-
-
-    // Accept terms
 
     acceptBtn.addEventListener(
         'click',
@@ -1306,15 +1063,12 @@ if (
     );
 
 
-
-    // Close popup outside
-
     window.addEventListener(
         'click',
-        e => {
+        event => {
 
             if (
-                e.target === popup
+                event.target === popup
             ) {
 
                 popup.style.display =
@@ -1325,9 +1079,6 @@ if (
         }
     );
 
-
-
-    // Restore accepted terms
 
     if (
         localStorage.getItem(
@@ -1343,20 +1094,15 @@ if (
 }
 
 
-
 // ======================================================
 // HAMBURGER MENU
 // ======================================================
 
 const hamburger =
-    document.getElementById(
-        'hamburger'
-    );
+    document.getElementById('hamburger');
 
 const navMenu =
-    document.getElementById(
-        'nav-menu'
-    );
+    document.getElementById('nav-menu');
 
 
 if (
@@ -1366,9 +1112,9 @@ if (
 
     hamburger.addEventListener(
         'click',
-        e => {
+        event => {
 
-            e.stopPropagation();
+            event.stopPropagation();
 
             hamburger.classList.toggle(
                 'active'
@@ -1406,11 +1152,11 @@ if (
 
     document.addEventListener(
         'click',
-        e => {
+        event => {
 
             if (
-                !navMenu.contains(e.target) &&
-                !hamburger.contains(e.target)
+                !navMenu.contains(event.target) &&
+                !hamburger.contains(event.target)
             ) {
 
                 hamburger.classList.remove(
@@ -1429,33 +1175,18 @@ if (
 }
 
 
-
 // ======================================================
 // SUBMIT BOOKING
 // ======================================================
 
 async function submitBooking() {
 
-
-    // ==========================================
-    // PREVENT DOUBLE CLICK
-    // ==========================================
-
     if (isSubmittingBooking) {
-
-        console.log(
-            'Booking already being submitted.'
-        );
 
         return;
 
     }
 
-
-
-    // ==========================================
-    // GET ELEMENTS
-    // ==========================================
 
     const clientName =
         document.getElementById(
@@ -1478,11 +1209,6 @@ async function submitBooking() {
         );
 
 
-
-    // ==========================================
-    // VALIDATE BOOKING
-    // ==========================================
-
     if (
         !selectedDate ||
         !selectedTime ||
@@ -1496,7 +1222,6 @@ async function submitBooking() {
         return;
 
     }
-
 
 
     if (
@@ -1513,13 +1238,11 @@ async function submitBooking() {
     }
 
 
-
     const name =
         clientName.value.trim();
 
     const email =
         clientEmail.value.trim();
-
 
 
     if (!name) {
@@ -1533,7 +1256,6 @@ async function submitBooking() {
         return;
 
     }
-
 
 
     if (
@@ -1552,7 +1274,6 @@ async function submitBooking() {
     }
 
 
-
     if (
         terms &&
         !terms.checked
@@ -1567,11 +1288,6 @@ async function submitBooking() {
     }
 
 
-
-    // ==========================================
-    // SAVE VALUES BEFORE FETCH
-    // ==========================================
-
     const bookingDate =
         selectedDate;
 
@@ -1581,11 +1297,6 @@ async function submitBooking() {
     const bookingService =
         selectedService;
 
-
-
-    // ==========================================
-    // LOCK BUTTON
-    // ==========================================
 
     isSubmittingBooking =
         true;
@@ -1602,17 +1313,11 @@ async function submitBooking() {
     }
 
 
-
     try {
 
-
-        // ==========================================
-        // SEND TO PHP
-        // ==========================================
-
         const response =
-    await fetch(
-        'https://psychology-clinic.xo.je/api/booking.php',
+            await fetch(
+                'https://psychology-clinic.xo.je/api/booking.php',
                 {
                     method: 'POST',
 
@@ -1644,11 +1349,6 @@ async function submitBooking() {
             );
 
 
-
-        // ==========================================
-        // READ RESPONSE
-        // ==========================================
-
         const result =
             await response.json();
 
@@ -1659,24 +1359,7 @@ async function submitBooking() {
         );
 
 
-
-        // ==========================================
-        // SUCCESS
-        // ==========================================
-
-        if (
-            result.success
-        ) {
-
-
-            console.log(
-                'Booking ID:',
-                result.booking_id
-            );
-
-
-
-            // Add newly booked time locally
+        if (result.success) {
 
             bookedBookings.push({
 
@@ -1691,11 +1374,6 @@ async function submitBooking() {
 
             });
 
-
-
-            // ==========================================
-            // SUCCESS POPUP DATA
-            // ==========================================
 
             const successDate =
                 document.getElementById(
@@ -1718,14 +1396,12 @@ async function submitBooking() {
                 );
 
 
-
             if (successDate) {
 
                 successDate.innerText =
                     bookingDate;
 
             }
-
 
             if (successTime) {
 
@@ -1734,14 +1410,12 @@ async function submitBooking() {
 
             }
 
-
             if (successService) {
 
                 successService.innerText =
                     bookingService;
 
             }
-
 
             if (successEmail) {
 
@@ -1750,11 +1424,6 @@ async function submitBooking() {
 
             }
 
-
-
-            // ==========================================
-            // SHOW SUCCESS POPUP
-            // ==========================================
 
             const successPopup =
                 document.getElementById(
@@ -1771,37 +1440,16 @@ async function submitBooking() {
             }
 
 
-
-            // ==========================================
-            // KEEP DATE & SERVICE
-            // ONLY CLEAR SELECTED TIME
-            // ==========================================
-
             selectedTime =
                 bookingTime;
-
-
-            // Render again so booked time
-            // becomes unavailable
 
             renderTimes();
 
             updateLiveSummary();
 
-
-
-            console.log(
-                'Booking successfully completed.'
-            );
-
         }
 
         else {
-
-
-            // ==========================================
-            // BOOKING FAILED
-            // ==========================================
 
             alert(
                 result.message ||
@@ -1810,33 +1458,21 @@ async function submitBooking() {
 
         }
 
-    }
-
-    catch (error) {
-
+    } catch (error) {
 
         console.error(
             'Booking error:',
             error
         );
 
-
         alert(
             'Could not connect to the server.'
         );
 
-    }
-
-    finally {
-
-
-        // ==========================================
-        // UNLOCK BUTTON
-        // ==========================================
+    } finally {
 
         isSubmittingBooking =
             false;
-
 
         if (paymentBtn) {
 
@@ -1853,9 +1489,8 @@ async function submitBooking() {
 }
 
 
-
 // ======================================================
-// CLOSE SUCCESS POPUP
+// CLOSE BOOKING SUCCESS
 // ======================================================
 
 function closeBookingSuccess() {
@@ -1864,7 +1499,6 @@ function closeBookingSuccess() {
         document.getElementById(
             'bookingSuccessPopup'
         );
-
 
     if (successPopup) {
 
@@ -1875,7 +1509,6 @@ function closeBookingSuccess() {
     }
 
 }
-
 
 
 // ======================================================
@@ -1897,8 +1530,11 @@ window.addEventListener(
     }
 );
 
+
 // ======================================================
 // CONTACT FORM
+// ======================================================
+// KJO PJESË ËSHTË VETËM NJË HERË
 // ======================================================
 
 const contactForm =
@@ -1912,17 +1548,17 @@ const successCloseBtn =
 
 
 // ======================================================
-// INITIAL STATE
+// INITIAL CONTACT STATE
 // ======================================================
-
-// Success message duhet të jetë i fshehur
-// derisa mesazhi të dërgohet me sukses.
 
 if (contactSuccess) {
 
-    contactSuccess.classList.remove('active');
+    contactSuccess.style.display =
+        'none';
 
-    contactSuccess.style.display = 'none';
+    contactSuccess.classList.remove(
+        'active'
+    );
 
 }
 
@@ -1939,10 +1575,6 @@ if (contactForm) {
 
             event.preventDefault();
 
-
-            // ------------------------------------------
-            // GET INPUTS
-            // ------------------------------------------
 
             const nameInput =
                 document.getElementById('name');
@@ -1979,9 +1611,7 @@ if (contactForm) {
                 messageInput.value.trim();
 
 
-            // ------------------------------------------
-            // VALIDATION - NAME
-            // ------------------------------------------
+            // VALIDATION
 
             if (!name) {
 
@@ -1995,10 +1625,6 @@ if (contactForm) {
 
             }
 
-
-            // ------------------------------------------
-            // VALIDATION - EMAIL
-            // ------------------------------------------
 
             if (
                 !email ||
@@ -2016,10 +1642,6 @@ if (contactForm) {
             }
 
 
-            // ------------------------------------------
-            // VALIDATION - MESSAGE
-            // ------------------------------------------
-
             if (!message) {
 
                 alert(
@@ -2033,33 +1655,22 @@ if (contactForm) {
             }
 
 
-            // ------------------------------------------
-            // GET SEND BUTTON
-            // ------------------------------------------
-
             const submitButton =
                 contactForm.querySelector(
                     'button[type="submit"]'
                 );
 
 
-            // ------------------------------------------
-            // DISABLE BUTTON
-            // ------------------------------------------
-
             if (submitButton) {
 
-                submitButton.disabled = true;
+                submitButton.disabled =
+                    true;
 
                 submitButton.textContent =
                     'Sending...';
 
             }
 
-
-            // ------------------------------------------
-            // SEND TO PHP
-            // ------------------------------------------
 
             try {
 
@@ -2076,20 +1687,20 @@ if (contactForm) {
 
                             body: JSON.stringify({
 
-                                name: name,
+                                name:
+                                    name,
 
-                                email: email,
+                                email:
+                                    email,
 
-                                message: message
+                                message:
+                                    message
 
                             })
+
                         }
                     );
 
-
-                // --------------------------------------
-                // CHECK SERVER RESPONSE
-                // --------------------------------------
 
                 if (!response.ok) {
 
@@ -2099,10 +1710,6 @@ if (contactForm) {
 
                 }
 
-
-                // --------------------------------------
-                // READ JSON
-                // --------------------------------------
 
                 const result =
                     await response.json();
@@ -2114,25 +1721,20 @@ if (contactForm) {
                 );
 
 
-                // --------------------------------------
+                // ==================================================
                 // SUCCESS
-                // --------------------------------------
+                // ==================================================
 
-                if (result.success) {
+                if (
+                    result.success === true
+                ) {
 
-                    // Clear form
-
-                    contactForm.reset();
-
-
-                    // Hide contact form
-
+                    // Fshi formën
                     contactForm.style.display =
                         'none';
 
 
-                    // Show success message
-
+                    // Shfaq konfirmimin
                     if (contactSuccess) {
 
                         contactSuccess.style.display =
@@ -2146,11 +1748,6 @@ if (contactForm) {
 
                 }
 
-
-                // --------------------------------------
-                // ERROR FROM PHP
-                // --------------------------------------
-
                 else {
 
                     alert(
@@ -2161,32 +1758,18 @@ if (contactForm) {
                 }
 
 
-            }
-
-            // ------------------------------------------
-            // CONNECTION ERROR
-            // ------------------------------------------
-
-            catch (error) {
+            } catch (error) {
 
                 console.error(
                     'Contact error:',
                     error
                 );
 
-
                 alert(
                     'Could not connect to the server. Please try again.'
                 );
 
-            }
-
-
-            // ------------------------------------------
-            // ENABLE BUTTON AGAIN
-            // ------------------------------------------
-
-            finally {
+            } finally {
 
                 if (submitButton) {
 
@@ -2206,9 +1789,8 @@ if (contactForm) {
 }
 
 
-
 // ======================================================
-// CLOSE SUCCESS MESSAGE
+// CLOSE CONTACT SUCCESS
 // ======================================================
 
 if (successCloseBtn) {
@@ -2216,8 +1798,6 @@ if (successCloseBtn) {
     successCloseBtn.addEventListener(
         'click',
         () => {
-
-            // Hide success message
 
             if (contactSuccess) {
 
@@ -2231,8 +1811,6 @@ if (successCloseBtn) {
             }
 
 
-            // Show form again
-
             if (contactForm) {
 
                 contactForm.style.display =
@@ -2242,8 +1820,6 @@ if (successCloseBtn) {
 
             }
 
-
-            // Close modal
 
             if (contactModal) {
 
