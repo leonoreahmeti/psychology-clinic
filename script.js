@@ -1904,6 +1904,12 @@ window.addEventListener(
 const contactForm =
     document.getElementById('contactForm');
 
+const contactSuccess =
+    document.getElementById('contactSuccess');
+
+const successCloseBtn =
+    document.getElementById('successCloseBtn');
+
 
 if (contactForm) {
 
@@ -1940,7 +1946,9 @@ if (contactForm) {
 
             if (!name) {
 
-                alert('Please enter your name.');
+                alert(
+                    'Please enter your name.'
+                );
 
                 nameInput.focus();
 
@@ -1954,7 +1962,9 @@ if (contactForm) {
                 !emailInput.checkValidity()
             ) {
 
-                alert('Please enter a valid email address.');
+                alert(
+                    'Please enter a valid email address.'
+                );
 
                 emailInput.focus();
 
@@ -1965,7 +1975,9 @@ if (contactForm) {
 
             if (!message) {
 
-                alert('Please enter your message.');
+                alert(
+                    'Please enter your message.'
+                );
 
                 messageInput.focus();
 
@@ -1975,7 +1987,7 @@ if (contactForm) {
 
 
             // ------------------------------------------
-            // GET BUTTON
+            // BUTTON
             // ------------------------------------------
 
             const submitButton =
@@ -2001,8 +2013,8 @@ if (contactForm) {
             try {
 
                 const response =
-    await fetch(
-        'https://psychology-clinic.xo.je/api/contact.php',
+                    await fetch(
+                        'https://psychology-clinic.xo.je/api/contact.php',
                         {
                             method: 'POST',
 
@@ -2040,20 +2052,22 @@ if (contactForm) {
 
                 if (result.success) {
 
-                    alert(
-                        result.message ||
-                        'Your message has been sent successfully.'
-                    );
-
+                    // Clear form
 
                     contactForm.reset();
 
 
-                    // Close modal
+                    // Hide form
 
-                    if (contactModal) {
+                    contactForm.style.display =
+                        'none';
 
-                        contactModal.classList.remove(
+
+                    // Show success message
+
+                    if (contactSuccess) {
+
+                        contactSuccess.classList.add(
                             'active'
                         );
 
@@ -2092,12 +2106,55 @@ if (contactForm) {
 
                 if (submitButton) {
 
-                    submitButton.disabled = false;
+                    submitButton.disabled =
+                        false;
 
                     submitButton.textContent =
                         'Send Message';
 
                 }
+
+            }
+
+        }
+    );
+
+}
+
+
+
+// ======================================================
+// CLOSE SUCCESS MESSAGE
+// ======================================================
+
+if (successCloseBtn) {
+
+    successCloseBtn.addEventListener(
+        'click',
+        () => {
+
+            if (contactSuccess) {
+
+                contactSuccess.classList.remove(
+                    'active'
+                );
+
+            }
+
+
+            if (contactForm) {
+
+                contactForm.style.display =
+                    'block';
+
+            }
+
+
+            if (contactModal) {
+
+                contactModal.classList.remove(
+                    'active'
+                );
 
             }
 
