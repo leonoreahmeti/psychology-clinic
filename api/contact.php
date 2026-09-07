@@ -1,6 +1,7 @@
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -11,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
     http_response_code(405);
 
     echo json_encode([
@@ -29,6 +31,7 @@ $data = json_decode(
 );
 
 if (!is_array($data)) {
+
     http_response_code(400);
 
     echo json_encode([
@@ -43,48 +46,54 @@ $name = trim($data['name'] ?? '');
 $email = trim($data['email'] ?? '');
 $message = trim($data['message'] ?? '');
 
+
+// VALIDATION
+
 if ($name === '') {
+
     echo json_encode([
         'success' => false,
         'message' => 'Please enter your name.'
     ]);
+
     exit;
 }
+
 
 if (
     $email === '' ||
     !filter_var($email, FILTER_VALIDATE_EMAIL)
 ) {
+
     echo json_encode([
         'success' => false,
         'message' => 'Please enter a valid email address.'
     ]);
+
     exit;
 }
 
+
 if ($message === '') {
+
     echo json_encode([
         'success' => false,
         'message' => 'Please enter your message.'
     ]);
+
     exit;
 }
+
+
+// DATABASE
 
 try {
 
     $stmt = $pdo->prepare("
         INSERT INTO contact_messages
-        (
-            name,
-            email,
-            message
-        )
+        (name, email, message)
         VALUES
-        (
-            :name,
-            :email,
-            :message
-        )
+        (:name, :email, :message)
     ");
 
     $stmt->execute([
@@ -93,10 +102,14 @@ try {
         ':message' => $message
     ]);
 
+
     echo json_encode([
         'success' => true,
-        'message' => 'Your message has been sent successfully.'
+        'message' => 'Message saved successfully.'
     ]);
+
+    exit;
+
 
 } catch (PDOException $e) {
 
@@ -104,8 +117,8 @@ try {
 
     echo json_encode([
         'success' => false,
-        'message' => 'Could not save your message.'
+        'message' => 'Database error: ' . $e->getMessage()
     ]);
-}
 
-exit;
+    exit;
+}
