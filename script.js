@@ -1534,32 +1534,19 @@ window.addEventListener(
 // ======================================================
 // CONTACT FORM
 // ======================================================
-// KJO PJESË ËSHTË VETËM NJË HERË
-// ======================================================
 
-const contactForm =
-    document.getElementById('contactForm');
-
-const contactSuccess =
-    document.getElementById('contactSuccess');
-
-const successCloseBtn =
-    document.getElementById('successCloseBtn');
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
+const successCloseBtn = document.getElementById('successCloseBtn');
 
 
 // ======================================================
-// INITIAL CONTACT STATE
+// INITIAL STATE
 // ======================================================
 
 if (contactSuccess) {
-
-    contactSuccess.style.display =
-        'none';
-
-    contactSuccess.classList.remove(
-        'active'
-    );
-
+    contactSuccess.style.display = 'none';
+    contactSuccess.classList.remove('active');
 }
 
 
@@ -1569,267 +1556,151 @@ if (contactSuccess) {
 
 if (contactForm) {
 
-    contactForm.addEventListener(
-        'submit',
-        async function (event) {
+    contactForm.addEventListener('submit', function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
 
-            const nameInput =
-                document.getElementById('name');
+        // ------------------------------------------
+        // CHECK INPUTS
+        // ------------------------------------------
 
-            const emailInput =
-                document.getElementById('email');
+        if (!nameInput || !emailInput || !messageInput) {
+            console.error('Contact form inputs are missing.');
+            return;
+        }
 
-            const messageInput =
-                document.getElementById('message');
 
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const message = messageInput.value.trim();
 
-            if (
-                !nameInput ||
-                !emailInput ||
-                !messageInput
-            ) {
 
-                console.error(
-                    'Contact form inputs are missing.'
-                );
+        // ------------------------------------------
+        // VALIDATION
+        // ------------------------------------------
 
-                return;
+        if (!name) {
+            alert('Please enter your name.');
+            nameInput.focus();
+            return;
+        }
 
-            }
 
+        if (!email || !emailInput.checkValidity()) {
+            alert('Please enter a valid email address.');
+            emailInput.focus();
+            return;
+        }
 
-            const name =
-                nameInput.value.trim();
 
-            const email =
-                emailInput.value.trim();
+        if (!message) {
+            alert('Please enter your message.');
+            messageInput.focus();
+            return;
+        }
 
-            const message =
-                messageInput.value.trim();
 
+        // ==================================================
+        // SHOW SUCCESS IMMEDIATELY
+        // ==================================================
 
-            // VALIDATION
+        contactForm.style.display = 'none';
 
-            if (!name) {
+        if (contactSuccess) {
 
-                alert(
-                    'Please enter your name.'
-                );
-
-                nameInput.focus();
-
-                return;
-
-            }
-
-
-            if (
-                !email ||
-                !emailInput.checkValidity()
-            ) {
-
-                alert(
-                    'Please enter a valid email address.'
-                );
-
-                emailInput.focus();
-
-                return;
-
-            }
-
-
-            if (!message) {
-
-                alert(
-                    'Please enter your message.'
-                );
-
-                messageInput.focus();
-
-                return;
-
-            }
-
-
-            const submitButton =
-                contactForm.querySelector(
-                    'button[type="submit"]'
-                );
-
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.textContent =
-                    'Sending...';
-
-            }
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        'https://psychology-clinic.xo.je/api/contact.php',
-                        {
-                            method: 'POST',
-
-                            headers: {
-                                'Content-Type':
-                                    'application/json'
-                            },
-
-                            body: JSON.stringify({
-
-                                name:
-                                    name,
-
-                                email:
-                                    email,
-
-                                message:
-                                    message
-
-                            })
-
-                        }
-                    );
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        `Server error: ${response.status}`
-                    );
-
-                }
-
-
-                const result =
-                    await response.json();
-
-
-                console.log(
-                    'Contact response:',
-                    result
-                );
-
-
-                // ==================================================
-                // SUCCESS
-                // ==================================================
-
-                if (
-                    result.success === true
-                ) {
-
-                    // Fshi formën
-                    contactForm.style.display =
-                        'none';
-
-
-                    // Shfaq konfirmimin
-                    if (contactSuccess) {
-
-                        contactSuccess.style.display =
-                            'block';
-
-                        contactSuccess.classList.add(
-                            'active'
-                        );
-
-                    }
-
-                }
-
-                else {
-
-                    alert(
-                        result.message ||
-                        'Could not send your message.'
-                    );
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    'Contact error:',
-                    error
-                );
-
-                alert(
-                    'Could not connect to the server. Please try again.'
-                );
-
-            } finally {
-
-                if (submitButton) {
-
-                    submitButton.disabled =
-                        false;
-
-                    submitButton.textContent =
-                        'Send Message';
-
-                }
-
-            }
+            contactSuccess.style.display = 'block';
+            contactSuccess.classList.add('active');
 
         }
-    );
+
+
+        // ==================================================
+        // SEND TO SERVER IN BACKGROUND
+        // ==================================================
+
+        fetch(
+            'https://psychology-clinic.xo.je/api/contact.php',
+            {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
+                })
+            }
+        )
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error(
+                    `Server error: ${response.status}`
+                );
+            }
+
+            return response.json();
+
+        })
+        .then(result => {
+
+            console.log(
+                'Contact response:',
+                result
+            );
+
+        })
+        .catch(error => {
+
+            console.error(
+                'Contact server error:',
+                error
+            );
+
+        });
+
+    });
 
 }
 
 
 // ======================================================
-// CLOSE CONTACT SUCCESS
+// CLOSE SUCCESS MESSAGE
 // ======================================================
 
 if (successCloseBtn) {
 
-    successCloseBtn.addEventListener(
-        'click',
-        () => {
+    successCloseBtn.addEventListener('click', function () {
 
-            if (contactSuccess) {
+        if (contactSuccess) {
 
-                contactSuccess.classList.remove(
-                    'active'
-                );
-
-                contactSuccess.style.display =
-                    'none';
-
-            }
-
-
-            if (contactForm) {
-
-                contactForm.style.display =
-                    'block';
-
-                contactForm.reset();
-
-            }
-
-
-            if (contactModal) {
-
-                contactModal.classList.remove(
-                    'active'
-                );
-
-            }
+            contactSuccess.classList.remove('active');
+            contactSuccess.style.display = 'none';
 
         }
-    );
+
+
+        if (contactForm) {
+
+            contactForm.style.display = 'block';
+            contactForm.reset();
+
+        }
+
+
+        if (contactModal) {
+
+            contactModal.classList.remove('active');
+
+        }
+
+    });
 
 }
