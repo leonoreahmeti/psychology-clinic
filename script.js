@@ -270,7 +270,7 @@ async function loadBookings() {
 
         const response =
             await fetch(
-                'api/get_bookings.php',
+    'https://psychology-clinic.xo.je/api/get_bookings.php',
                 {
                     cache: 'no-store'
                 }
@@ -1611,8 +1611,8 @@ async function submitBooking() {
         // ==========================================
 
         const response =
-            await fetch(
-                'api/booking.php',
+    await fetch(
+        'https://psychology-clinic.xo.je/api/booking.php',
                 {
                     method: 'POST',
 
@@ -2001,8 +2001,8 @@ if (contactForm) {
             try {
 
                 const response =
-                    await fetch(
-                        ''https://psychology-clinic.xo.je/api/contact.php'',
+    await fetch(
+        'https://psychology-clinic.xo.je/api/contact.php',
                         {
                             method: 'POST',
 
