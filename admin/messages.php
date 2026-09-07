@@ -511,6 +511,279 @@ $readMessages = count(
 
         }
 
+        /* =========================================================
+   SUCCESS POPUP
+========================================================= */
+
+.success-popup {
+    position: fixed;
+
+    top: 25px;
+    right: 25px;
+
+    background: white;
+
+    padding: 18px 22px;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 320px;
+
+    border-left:
+        5px solid #6fcf97;
+
+    z-index: 9999;
+
+    transform: translateX(120%);
+
+    opacity: 0;
+
+    transition: all 0.35s ease;
+}
+
+.success-popup.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.success-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e9f7ef;
+
+    color: #2e8b57;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    font-size: 18px;
+}
+
+.success-popup strong {
+    display: block;
+
+    color: #243746;
+
+    font-size: 14px;
+
+    margin-bottom: 3px;
+}
+
+.success-popup span {
+    color: #6b777f;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CONFIRMATION MODAL
+========================================================= */
+
+.confirm-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(25, 40, 35, 0.45);
+
+    backdrop-filter: blur(5px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 10000;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.confirm-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.confirm-modal {
+    width: 100%;
+    max-width: 430px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 32px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.20);
+
+    transform:
+        translateY(20px)
+        scale(0.96);
+
+    transition:
+        transform 0.25s ease;
+}
+
+.confirm-overlay.show .confirm-modal {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.confirm-icon {
+    width: 68px;
+    height: 68px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: 600;
+}
+
+.confirm-icon.delete-icon {
+    background: #fdeceb;
+    color: #e74c3c;
+}
+
+.confirm-modal h3 {
+    font-size: 21px;
+
+    color: #243746;
+
+    margin-bottom: 10px;
+}
+
+.confirm-modal p {
+    color: #6b777f;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+}
+
+.confirm-actions {
+    display: flex;
+
+    gap: 10px;
+}
+
+.confirm-actions button {
+    flex: 1;
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.confirm-no {
+    background: #f1f4f3;
+
+    color: #52616b;
+}
+
+.confirm-no:hover {
+    background: #e5eae8;
+}
+
+.confirm-yes.delete-confirm {
+    background: #e74c3c;
+
+    color: white;
+}
+
+.confirm-yes.delete-confirm:hover {
+    background: #c0392b;
+}
+
+.confirm-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .confirm-modal {
+        padding: 25px 20px;
+
+        border-radius: 18px;
+    }
+
+    .confirm-modal h3 {
+        font-size: 19px;
+    }
+
+    .confirm-actions {
+        flex-direction: column;
+    }
+
+    .success-popup {
+        left: 15px;
+        right: 15px;
+
+        top: 15px;
+
+        min-width: 0;
+
+        width: auto;
+    }
+
+}
+
+
     </style>
 
 </head>
@@ -734,7 +1007,7 @@ $readMessages = count(
                                 ): ?>
 
                                     <form
-                                        action="mark_message.php"
+                                        action="mark_message_read.php"
                                         method="POST"
                                     >
 
@@ -758,10 +1031,11 @@ $readMessages = count(
                                 <?php endif; ?>
 
 
-                                <form
-                                    action="delete_message.php"
-                                    method="POST"
-                                    onsubmit="return confirm('Delete this message?');"
+                              <form
+    action="delete_message.php"
+    method="POST"
+>
+
                                 >
 
                                     <input
@@ -803,8 +1077,356 @@ $readMessages = count(
 
 
 </main>
+<!-- =========================================================
+     SUCCESS POPUP
+========================================================= -->
+
+<div
+    id="successPopup"
+    class="success-popup"
+>
+
+    <div class="success-icon">
+        ✓
+    </div>
+
+    <div>
+
+        <strong id="successTitle">
+            Success
+        </strong>
+
+        <span id="successMessage">
+            Action completed successfully.
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     DELETE CONFIRMATION MODAL
+========================================================= -->
+
+<div
+    id="confirmOverlay"
+    class="confirm-overlay"
+>
+
+    <div
+        class="confirm-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div
+            class="confirm-icon delete-icon"
+        >
+            ×
+        </div>
+
+        <h3>
+            Delete this message?
+        </h3>
+
+        <p>
+            This action will permanently remove this message.
+            This cannot be undone.
+        </p>
+
+        <div class="confirm-actions">
+
+            <button
+                type="button"
+                id="confirmNo"
+                class="confirm-no"
+            >
+                No, go back
+            </button>
+
+            <button
+                type="button"
+                id="confirmYes"
+                class="confirm-yes delete-confirm"
+            >
+                Yes, delete message
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 </body>
 
 </html>
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const confirmOverlay =
+        document.getElementById('confirmOverlay');
+
+    const confirmNo =
+        document.getElementById('confirmNo');
+
+    const confirmYes =
+        document.getElementById('confirmYes');
+
+    const successPopup =
+        document.getElementById('successPopup');
+
+    const successTitle =
+        document.getElementById('successTitle');
+
+    const successMessage =
+        document.getElementById('successMessage');
+
+
+    let selectedForm = null;
+
+    let popupTimeout = null;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SUCCESS POPUP
+    |--------------------------------------------------------------------------
+    */
+
+    function showSuccess(title, message) {
+
+        successTitle.textContent = title;
+
+        successMessage.textContent = message;
+
+        successPopup.classList.add('show');
+
+        clearTimeout(popupTimeout);
+
+        popupTimeout = setTimeout(function () {
+
+            successPopup.classList.remove('show');
+
+        }, 4000);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | OPEN MODAL
+    |--------------------------------------------------------------------------
+    */
+
+    function openConfirmModal(form) {
+
+        selectedForm = form;
+
+        confirmOverlay.classList.add('show');
+
+        document.body.style.overflow = 'hidden';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CLOSE MODAL
+    |--------------------------------------------------------------------------
+    */
+
+    function closeConfirmModal() {
+
+        confirmOverlay.classList.remove('show');
+
+        document.body.style.overflow = '';
+
+        selectedForm = null;
+
+        confirmYes.disabled = false;
+
+        confirmNo.disabled = false;
+
+        confirmYes.textContent =
+            'Yes, delete message';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | DELETE FORMS
+    |--------------------------------------------------------------------------
+    */
+
+    document
+        .querySelectorAll('form[action="delete_message.php"]')
+        .forEach(function (form) {
+
+            form.addEventListener(
+                'submit',
+                function (event) {
+
+                    event.preventDefault();
+
+                    openConfirmModal(form);
+
+                }
+            );
+
+        });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | NO
+    |--------------------------------------------------------------------------
+    */
+
+    confirmNo.addEventListener(
+        'click',
+        function () {
+
+            closeConfirmModal();
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CLICK OUTSIDE
+    |--------------------------------------------------------------------------
+    */
+
+    confirmOverlay.addEventListener(
+        'click',
+        function (event) {
+
+            if (event.target === confirmOverlay) {
+
+                closeConfirmModal();
+
+            }
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ESC
+    |--------------------------------------------------------------------------
+    */
+
+    document.addEventListener(
+        'keydown',
+        function (event) {
+
+            if (
+                event.key === 'Escape' &&
+                confirmOverlay.classList.contains('show')
+            ) {
+
+                closeConfirmModal();
+
+            }
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CONFIRM DELETE
+    |--------------------------------------------------------------------------
+    */
+
+    confirmYes.addEventListener(
+        'click',
+        async function () {
+
+            if (!selectedForm) {
+                return;
+            }
+
+
+            const form = selectedForm;
+
+
+            confirmYes.disabled = true;
+            confirmNo.disabled = true;
+
+            confirmYes.textContent =
+                'Deleting...';
+
+
+            try {
+
+                const formData =
+                    new FormData(form);
+
+
+                const response =
+                    await fetch(
+                        form.action,
+                        {
+                            method: 'POST',
+                            body: formData
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        'Delete request failed.'
+                    );
+
+                }
+
+
+                closeConfirmModal();
+
+
+                showSuccess(
+                    'Message deleted',
+                    'The message has been permanently removed.'
+                );
+
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                }, 1000);
+
+
+            } catch (error) {
+
+                console.error(
+                    'Delete message error:',
+                    error
+                );
+
+
+                closeConfirmModal();
+
+
+                alert(
+                    'Something went wrong. Please try again.'
+                );
+
+            }
+
+        }
+    );
+
+
+});
+
+</script>
+
