@@ -100,18 +100,43 @@
 
         <h2>Send a Message</h2>
 
-        <form class="contact-form">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="Enter your name" required>
+     <form class="contact-form" id="contactForm">
 
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" required>
+    <label for="name">Full Name</label>
 
-            <label for="message">Message</label>
-            <textarea id="message" rows="6" placeholder="Write your message..." required></textarea>
+    <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter your name"
+        required
+    >
 
-            <button type="submit">Send Message</button>
-        </form>
+    <label for="email">Email</label>
+
+    <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+    >
+
+    <label for="message">Message</label>
+
+    <textarea
+        id="message"
+        name="message"
+        rows="6"
+        placeholder="Write your message..."
+        required
+    ></textarea>
+
+    <button type="submit">
+        Send Message
+    </button>
+
+</form>
     </div>
 </div>
 

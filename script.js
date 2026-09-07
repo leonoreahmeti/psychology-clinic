@@ -1896,3 +1896,212 @@ window.addEventListener(
 
     }
 );
+
+// ======================================================
+// CONTACT FORM
+// ======================================================
+
+const contactForm =
+    document.getElementById('contactForm');
+
+
+if (contactForm) {
+
+    contactForm.addEventListener(
+        'submit',
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const nameInput =
+                document.getElementById('name');
+
+            const emailInput =
+                document.getElementById('email');
+
+            const messageInput =
+                document.getElementById('message');
+
+
+            const name =
+                nameInput.value.trim();
+
+            const email =
+                emailInput.value.trim();
+
+            const message =
+                messageInput.value.trim();
+
+
+            // ------------------------------------------
+            // VALIDATION
+            // ------------------------------------------
+
+            if (!name) {
+
+                alert('Please enter your name.');
+
+                nameInput.focus();
+
+                return;
+
+            }
+
+
+            if (
+                !email ||
+                !emailInput.checkValidity()
+            ) {
+
+                alert('Please enter a valid email address.');
+
+                emailInput.focus();
+
+                return;
+
+            }
+
+
+            if (!message) {
+
+                alert('Please enter your message.');
+
+                messageInput.focus();
+
+                return;
+
+            }
+
+
+            // ------------------------------------------
+            // GET BUTTON
+            // ------------------------------------------
+
+            const submitButton =
+                contactForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+
+            if (submitButton) {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    'Sending...';
+
+            }
+
+
+            // ------------------------------------------
+            // SEND TO PHP
+            // ------------------------------------------
+
+            try {
+
+                const response =
+                    await fetch(
+                        'api/contact.php',
+                        {
+                            method: 'POST',
+
+                            headers: {
+                                'Content-Type':
+                                    'application/json'
+                            },
+
+                            body: JSON.stringify({
+
+                                name: name,
+
+                                email: email,
+
+                                message: message
+
+                            })
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                console.log(
+                    'Contact response:',
+                    result
+                );
+
+
+                // --------------------------------------
+                // SUCCESS
+                // --------------------------------------
+
+                if (result.success) {
+
+                    alert(
+                        result.message ||
+                        'Your message has been sent successfully.'
+                    );
+
+
+                    contactForm.reset();
+
+
+                    // Close modal
+
+                    if (contactModal) {
+
+                        contactModal.classList.remove(
+                            'active'
+                        );
+
+                    }
+
+                }
+
+                else {
+
+                    alert(
+                        result.message ||
+                        'Could not send your message.'
+                    );
+
+                }
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    'Contact error:',
+                    error
+                );
+
+
+                alert(
+                    'Could not connect to the server. Please try again.'
+                );
+
+            }
+
+
+            finally {
+
+                if (submitButton) {
+
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        'Send Message';
+
+                }
+
+            }
+
+        }
+    );
+
+}
