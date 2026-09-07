@@ -1911,6 +1911,26 @@ const successCloseBtn =
     document.getElementById('successCloseBtn');
 
 
+// ======================================================
+// INITIAL STATE
+// ======================================================
+
+// Success message duhet të jetë i fshehur
+// derisa mesazhi të dërgohet me sukses.
+
+if (contactSuccess) {
+
+    contactSuccess.classList.remove('active');
+
+    contactSuccess.style.display = 'none';
+
+}
+
+
+// ======================================================
+// CONTACT FORM SUBMIT
+// ======================================================
+
 if (contactForm) {
 
     contactForm.addEventListener(
@@ -1920,6 +1940,10 @@ if (contactForm) {
             event.preventDefault();
 
 
+            // ------------------------------------------
+            // GET INPUTS
+            // ------------------------------------------
+
             const nameInput =
                 document.getElementById('name');
 
@@ -1928,6 +1952,21 @@ if (contactForm) {
 
             const messageInput =
                 document.getElementById('message');
+
+
+            if (
+                !nameInput ||
+                !emailInput ||
+                !messageInput
+            ) {
+
+                console.error(
+                    'Contact form inputs are missing.'
+                );
+
+                return;
+
+            }
 
 
             const name =
@@ -1941,7 +1980,7 @@ if (contactForm) {
 
 
             // ------------------------------------------
-            // VALIDATION
+            // VALIDATION - NAME
             // ------------------------------------------
 
             if (!name) {
@@ -1956,6 +1995,10 @@ if (contactForm) {
 
             }
 
+
+            // ------------------------------------------
+            // VALIDATION - EMAIL
+            // ------------------------------------------
 
             if (
                 !email ||
@@ -1973,6 +2016,10 @@ if (contactForm) {
             }
 
 
+            // ------------------------------------------
+            // VALIDATION - MESSAGE
+            // ------------------------------------------
+
             if (!message) {
 
                 alert(
@@ -1987,7 +2034,7 @@ if (contactForm) {
 
 
             // ------------------------------------------
-            // BUTTON
+            // GET SEND BUTTON
             // ------------------------------------------
 
             const submitButton =
@@ -1995,6 +2042,10 @@ if (contactForm) {
                     'button[type="submit"]'
                 );
 
+
+            // ------------------------------------------
+            // DISABLE BUTTON
+            // ------------------------------------------
 
             if (submitButton) {
 
@@ -2036,6 +2087,23 @@ if (contactForm) {
                     );
 
 
+                // --------------------------------------
+                // CHECK SERVER RESPONSE
+                // --------------------------------------
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Server error: ${response.status}`
+                    );
+
+                }
+
+
+                // --------------------------------------
+                // READ JSON
+                // --------------------------------------
+
                 const result =
                     await response.json();
 
@@ -2057,7 +2125,7 @@ if (contactForm) {
                     contactForm.reset();
 
 
-                    // Hide form
+                    // Hide contact form
 
                     contactForm.style.display =
                         'none';
@@ -2067,6 +2135,9 @@ if (contactForm) {
 
                     if (contactSuccess) {
 
+                        contactSuccess.style.display =
+                            'block';
+
                         contactSuccess.classList.add(
                             'active'
                         );
@@ -2074,6 +2145,11 @@ if (contactForm) {
                     }
 
                 }
+
+
+                // --------------------------------------
+                // ERROR FROM PHP
+                // --------------------------------------
 
                 else {
 
@@ -2086,6 +2162,10 @@ if (contactForm) {
 
 
             }
+
+            // ------------------------------------------
+            // CONNECTION ERROR
+            // ------------------------------------------
 
             catch (error) {
 
@@ -2101,6 +2181,10 @@ if (contactForm) {
 
             }
 
+
+            // ------------------------------------------
+            // ENABLE BUTTON AGAIN
+            // ------------------------------------------
 
             finally {
 
@@ -2133,22 +2217,33 @@ if (successCloseBtn) {
         'click',
         () => {
 
+            // Hide success message
+
             if (contactSuccess) {
 
                 contactSuccess.classList.remove(
                     'active'
                 );
 
+                contactSuccess.style.display =
+                    'none';
+
             }
 
+
+            // Show form again
 
             if (contactForm) {
 
                 contactForm.style.display =
                     'block';
 
+                contactForm.reset();
+
             }
 
+
+            // Close modal
 
             if (contactModal) {
 
