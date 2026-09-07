@@ -98,44 +98,51 @@
     <div class="modal-box">
         <button class="close-btn" id="closeModal">&times;</button>
 
-        <h2>Send a Message</h2>
+   <div id="contactFormWrapper">
 
-     <form class="contact-form" id="contactForm">
+    <h2>Send a Message</h2>
 
-    <label for="name">Full Name</label>
+    <form class="contact-form" id="contactForm">
 
-    <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Enter your name"
-        required
-    >
+        <label for="name">Full Name</label>
 
-    <label for="email">Email</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            required
+        >
 
-    <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        required
-    >
+        <label for="email">Email</label>
 
-    <label for="message">Message</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+        >
 
-    <textarea
-        id="message"
-        name="message"
-        rows="6"
-        placeholder="Write your message..."
-        required
-    ></textarea>
+        <label for="message">Message</label>
 
-    <button type="submit">
-        Send Message
-    </button>
-</form>
+        <textarea
+            id="message"
+            name="message"
+            rows="6"
+            placeholder="Write your message..."
+            required
+        ></textarea>
+
+        <button type="submit">
+            Send Message
+        </button>
+
+    </form>
+
+</div>
+
+
 <div id="contactSuccess" class="contact-success" style="display: none;">
 
     <div class="success-icon">✓</div>
@@ -154,7 +161,9 @@
     <button type="button" id="successCloseBtn">
         Close
     </button>
+
 </div>
+
 
     </div>
 </div>

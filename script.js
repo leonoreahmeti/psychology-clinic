@@ -1535,10 +1535,17 @@ window.addEventListener(
 // CONTACT FORM
 // ======================================================
 
-const contactForm = document.getElementById('contactForm');
-const contactSuccess = document.getElementById('contactSuccess');
-const successCloseBtn = document.getElementById('successCloseBtn');
+const contactForm =
+    document.getElementById('contactForm');
 
+const contactFormWrapper =
+    document.getElementById('contactFormWrapper');
+
+const contactSuccess =
+    document.getElementById('contactSuccess');
+
+const successCloseBtn =
+    document.getElementById('successCloseBtn');
 
 // ======================================================
 // INITIAL STATE
@@ -1608,14 +1615,19 @@ if (contactForm) {
         // SHOW SUCCESS IMMEDIATELY
         // ==================================================
 
-        contactForm.style.display = 'none';
+     if (contactFormWrapper) {
 
-        if (contactSuccess) {
+    contactFormWrapper.style.display = 'none';
 
-            contactSuccess.style.display = 'block';
-            contactSuccess.classList.add('active');
+}
 
-        }
+if (contactSuccess) {
+
+    contactSuccess.style.display = 'block';
+    contactSuccess.classList.add('active');
+
+}
+
 
 
         // ==================================================
@@ -1687,12 +1699,18 @@ if (successCloseBtn) {
         }
 
 
-        if (contactForm) {
+      if (contactFormWrapper) {
 
-            contactForm.style.display = 'block';
-            contactForm.reset();
+    contactFormWrapper.style.display = 'block';
 
-        }
+}
+
+if (contactForm) {
+
+    contactForm.reset();
+
+}
+
 
 
         if (contactModal) {
