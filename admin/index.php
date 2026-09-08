@@ -92,8 +92,9 @@ $totalMessages = 0;
 try {
 
     $stmt = $pdo->query("
-        SELECT COUNT(*) 
+        SELECT COUNT(*)
         FROM messages
+        WHERE is_read = 0
     ");
 
     $totalMessages = (int) $stmt->fetchColumn();
