@@ -45,7 +45,7 @@ try {
 
     $messages = [];
 
-    $error = 'Could not load messages.';
+    $error = 'Could not load messages. Please try again.';
 
 }
 
@@ -93,6 +93,10 @@ $readMessages = count(
 
     <style>
 
+        /* =========================================================
+           RESET
+        ========================================================= */
+
         * {
             margin: 0;
             padding: 0;
@@ -100,15 +104,20 @@ $readMessages = count(
             font-family: 'Poppins', sans-serif;
         }
 
+
+        /* =========================================================
+           BODY
+        ========================================================= */
+
         body {
             background: #f3f7f5;
             color: #243746;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            NAVBAR
-        ===================================================== */
+        ========================================================= */
 
         .admin-nav {
             min-height: 70px;
@@ -126,22 +135,31 @@ $readMessages = count(
             padding: 0 40px;
 
             box-shadow:
-                0 2px 10px rgba(0,0,0,0.08);
+                0 2px 10px rgba(0, 0, 0, 0.08);
         }
+
 
         .admin-logo {
             font-size: 20px;
+
             font-weight: 700;
+
+            white-space: nowrap;
         }
+
 
         .nav-links {
             display: flex;
+
             align-items: center;
-            gap: 10px;
+
+            gap: 8px;
         }
+
 
         .nav-links a {
             color: white;
+
             text-decoration: none;
 
             padding: 8px 14px;
@@ -153,29 +171,26 @@ $readMessages = count(
             transition: 0.2s ease;
         }
 
+
         .nav-links a:hover,
         .nav-links a.active {
             background: #57b87e;
         }
 
+
         .logout-btn {
-            text-decoration: none;
-
-            color: white;
-
-            background: #489f6c;
-
-            padding: 9px 16px;
-
-            border-radius: 8px;
-
-            font-size: 13px;
+            background: #489f6c !important;
         }
 
 
-        /* =====================================================
-           CONTAINER
-        ===================================================== */
+        .logout-btn:hover {
+            background: #3d8d60 !important;
+        }
+
+
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
 
         .admin-container {
             max-width: 1400px;
@@ -185,35 +200,66 @@ $readMessages = count(
             padding: 45px 25px 70px;
         }
 
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
         .admin-header {
             margin-bottom: 30px;
         }
+
 
         .admin-header h1 {
             font-size: 36px;
 
             margin-bottom: 6px;
+
+            color: #243746;
         }
+
 
         .admin-header p {
             color: #6b777f;
+
+            font-size: 14px;
         }
 
 
-        /* =====================================================
-           STATS
-        ===================================================== */
+        /* =========================================================
+           ERROR MESSAGE
+        ========================================================= */
+
+        .error-message {
+            background: #f8d7da;
+
+            color: #721c24;
+
+            padding: 15px 18px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           STATISTICS
+        ========================================================= */
 
         .stats-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(3, 1fr);
+                repeat(3, minmax(0, 1fr));
 
             gap: 20px;
 
             margin-bottom: 30px;
         }
+
 
         .stat-card {
             background: white;
@@ -223,8 +269,19 @@ $readMessages = count(
             border-radius: 16px;
 
             box-shadow:
-                0 6px 20px rgba(0,0,0,0.06);
+                0 6px 20px rgba(0, 0, 0, 0.06);
+
+            transition: 0.2s ease;
         }
+
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 25px rgba(0, 0, 0, 0.08);
+        }
+
 
         .stat-card span {
             display: block;
@@ -236,14 +293,19 @@ $readMessages = count(
             margin-bottom: 8px;
         }
 
+
         .stat-card strong {
+            display: block;
+
             font-size: 30px;
+
+            color: #243746;
         }
 
 
-        /* =====================================================
-           MESSAGES
-        ===================================================== */
+        /* =========================================================
+           MESSAGES CARD
+        ========================================================= */
 
         .messages-card {
             background: white;
@@ -253,12 +315,18 @@ $readMessages = count(
             padding: 25px;
 
             box-shadow:
-                0 8px 25px rgba(0,0,0,0.06);
+                0 8px 25px rgba(0, 0, 0, 0.06);
         }
+
 
         .messages-card h2 {
             margin-bottom: 20px;
+
+            color: #243746;
+
+            font-size: 22px;
         }
+
 
         .message-list {
             display: flex;
@@ -269,9 +337,9 @@ $readMessages = count(
         }
 
 
-        /* =====================================================
-           MESSAGE
-        ===================================================== */
+        /* =========================================================
+           MESSAGE ITEM
+        ========================================================= */
 
         .message-item {
             border: 1px solid #edf1ef;
@@ -280,12 +348,21 @@ $readMessages = count(
 
             padding: 20px;
 
-            transition: 0.2s ease;
+            background: white;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
         }
+
 
         .message-item:hover {
             background: #fafdfb;
+
+            border-color: #dfe9e4;
         }
+
 
         .message-item.unread {
             border-left:
@@ -294,6 +371,10 @@ $readMessages = count(
             background: #f9fffb;
         }
 
+
+        /* =========================================================
+           MESSAGE TOP
+        ========================================================= */
 
         .message-top {
             display: flex;
@@ -308,13 +389,23 @@ $readMessages = count(
         }
 
 
+        .sender-info {
+            min-width: 0;
+        }
+
+
         .sender-info strong {
             display: block;
 
             font-size: 16px;
 
+            color: #243746;
+
             margin-bottom: 3px;
+
+            word-break: break-word;
         }
+
 
         .sender-info a {
             color: #57a978;
@@ -322,6 +413,13 @@ $readMessages = count(
             text-decoration: none;
 
             font-size: 13px;
+
+            word-break: break-word;
+        }
+
+
+        .sender-info a:hover {
+            text-decoration: underline;
         }
 
 
@@ -334,6 +432,10 @@ $readMessages = count(
         }
 
 
+        /* =========================================================
+           MESSAGE CONTENT
+        ========================================================= */
+
         .message-content {
             color: #4d5a61;
 
@@ -343,13 +445,15 @@ $readMessages = count(
 
             white-space: pre-wrap;
 
+            word-break: break-word;
+
             margin-bottom: 15px;
         }
 
 
-        /* =====================================================
-           STATUS
-        ===================================================== */
+        /* =========================================================
+           MESSAGE BOTTOM
+        ========================================================= */
 
         .message-bottom {
             display: flex;
@@ -360,6 +464,11 @@ $readMessages = count(
 
             gap: 10px;
         }
+
+
+        /* =========================================================
+           STATUS
+        ========================================================= */
 
         .status {
             display: inline-block;
@@ -373,11 +482,13 @@ $readMessages = count(
             font-weight: 600;
         }
 
+
         .status.unread {
             background: #e9f7ef;
 
             color: #2e8b57;
         }
+
 
         .status.read {
             background: #eef1f2;
@@ -386,19 +497,23 @@ $readMessages = count(
         }
 
 
-        /* =====================================================
-           BUTTONS
-        ===================================================== */
+        /* =========================================================
+           ACTIONS
+        ========================================================= */
 
         .actions {
             display: flex;
 
+            align-items: center;
+
             gap: 8px;
         }
+
 
         .actions form {
             margin: 0;
         }
+
 
         .action-btn {
             border: none;
@@ -414,28 +529,44 @@ $readMessages = count(
             color: white;
 
             font-family: 'Poppins', sans-serif;
+
+            transition: 0.2s ease;
         }
+
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
 
         .read-btn {
             background: #6fcf97;
         }
 
+
         .read-btn:hover {
             background: #57b87e;
         }
 
+
         .delete-btn {
             background: #e74c3c;
         }
+
 
         .delete-btn:hover {
             background: #c0392b;
         }
 
 
-        /* =====================================================
-           EMPTY
-        ===================================================== */
+        /* =========================================================
+           EMPTY MESSAGE
+        ========================================================= */
 
         .empty-message {
             text-align: center;
@@ -446,54 +577,381 @@ $readMessages = count(
         }
 
 
-        /* =====================================================
-           ERROR
-        ===================================================== */
-
-        .error-message {
-            background: #f8d7da;
-
-            color: #721c24;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            margin-bottom: 20px;
+        .empty-message p {
+            font-size: 14px;
         }
 
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+        /* =========================================================
+           SUCCESS POPUP
+        ========================================================= */
 
-        @media (max-width: 800px) {
+        .success-popup {
+            position: fixed;
+
+            top: 25px;
+
+            right: 25px;
+
+            background: white;
+
+            padding: 18px 22px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 320px;
+
+            border-left:
+                5px solid #6fcf97;
+
+            z-index: 9999;
+
+            transform:
+                translateX(120%);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                all 0.35s ease;
+        }
+
+
+        .success-popup.show {
+            transform:
+                translateX(0);
+
+            opacity: 1;
+        }
+
+
+        .success-icon {
+            width: 34px;
+
+            height: 34px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background: #e9f7ef;
+
+            color: #2e8b57;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 18px;
+        }
+
+
+        .success-popup strong {
+            display: block;
+
+            color: #243746;
+
+            font-size: 14px;
+
+            margin-bottom: 3px;
+        }
+
+
+        .success-popup span {
+            color: #6b777f;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           CONFIRMATION OVERLAY
+        ========================================================= */
+
+        .confirm-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(25, 40, 35, 0.45);
+
+            backdrop-filter: blur(5px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 10000;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity 0.25s ease,
+                visibility 0.25s ease;
+        }
+
+
+        .confirm-overlay.show {
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        /* =========================================================
+           CONFIRMATION MODAL
+        ========================================================= */
+
+        .confirm-modal {
+            width: 100%;
+
+            max-width: 430px;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 32px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.20);
+
+            transform:
+                translateY(20px)
+                scale(0.96);
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .confirm-overlay.show .confirm-modal {
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        /* =========================================================
+           CONFIRMATION ICON
+        ========================================================= */
+
+        .confirm-icon {
+            width: 68px;
+
+            height: 68px;
+
+            margin:
+                0 auto 18px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            font-weight: 600;
+        }
+
+
+        .confirm-icon.delete-icon {
+            background: #fdeceb;
+
+            color: #e74c3c;
+        }
+
+
+        /* =========================================================
+           CONFIRMATION TEXT
+        ========================================================= */
+
+        .confirm-modal h3 {
+            font-size: 21px;
+
+            color: #243746;
+
+            margin-bottom: 10px;
+        }
+
+
+        .confirm-modal p {
+            color: #6b777f;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           CONFIRMATION BUTTONS
+        ========================================================= */
+
+        .confirm-actions {
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .confirm-actions button {
+            flex: 1;
+
+            border: none;
+
+            padding: 12px 18px;
+
+            border-radius: 10px;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        .confirm-no {
+            background: #f1f4f3;
+
+            color: #52616b;
+        }
+
+
+        .confirm-no:hover {
+            background: #e5eae8;
+        }
+
+
+        .confirm-yes.delete-confirm {
+            background: #e74c3c;
+
+            color: white;
+        }
+
+
+        .confirm-yes.delete-confirm:hover {
+            background: #c0392b;
+        }
+
+
+        .confirm-actions button:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 900px) {
 
             .admin-nav {
-                padding: 15px 18px;
+                padding:
+                    15px 18px;
 
                 flex-wrap: wrap;
 
                 gap: 10px;
             }
 
+
+            .admin-logo {
+                font-size: 17px;
+            }
+
+
             .nav-links {
                 width: 100%;
 
                 overflow-x: auto;
+
+                padding-bottom: 2px;
             }
+
+
+            .nav-links a {
+                white-space: nowrap;
+            }
+
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .admin-container {
+                padding:
+                    30px 15px 50px;
+            }
+
+
+            .admin-header h1 {
+                font-size: 30px;
+            }
+
 
             .stats-grid {
                 grid-template-columns: 1fr;
             }
 
+
+            .messages-card {
+                padding: 18px;
+            }
+
+
             .message-top {
                 flex-direction: column;
+
+                gap: 8px;
             }
+
 
             .message-date {
                 white-space: normal;
             }
+
 
             .message-bottom {
                 flex-direction: column;
@@ -501,288 +959,57 @@ $readMessages = count(
                 align-items: flex-start;
             }
 
+
             .actions {
                 width: 100%;
             }
 
-            .action-btn {
+
+            .actions form {
                 flex: 1;
+            }
+
+
+            .action-btn {
+                width: 100%;
             }
 
         }
 
-        /* =========================================================
-   SUCCESS POPUP
-========================================================= */
 
-.success-popup {
-    position: fixed;
+        @media (max-width: 500px) {
 
-    top: 25px;
-    right: 25px;
+            .confirm-modal {
+                padding:
+                    25px 20px;
 
-    background: white;
+                border-radius: 18px;
+            }
 
-    padding: 18px 22px;
 
-    border-radius: 14px;
+            .confirm-modal h3 {
+                font-size: 19px;
+            }
 
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.15);
 
-    display: flex;
+            .confirm-actions {
+                flex-direction: column;
+            }
 
-    align-items: center;
 
-    gap: 12px;
+            .success-popup {
+                left: 15px;
 
-    min-width: 320px;
+                right: 15px;
 
-    border-left:
-        5px solid #6fcf97;
+                top: 15px;
 
-    z-index: 9999;
+                min-width: 0;
 
-    transform: translateX(120%);
+                width: auto;
+            }
 
-    opacity: 0;
-
-    transition: all 0.35s ease;
-}
-
-.success-popup.show {
-    transform: translateX(0);
-    opacity: 1;
-}
-
-.success-icon {
-    width: 34px;
-    height: 34px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    background: #e9f7ef;
-
-    color: #2e8b57;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-weight: 700;
-
-    font-size: 18px;
-}
-
-.success-popup strong {
-    display: block;
-
-    color: #243746;
-
-    font-size: 14px;
-
-    margin-bottom: 3px;
-}
-
-.success-popup span {
-    color: #6b777f;
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   CONFIRMATION MODAL
-========================================================= */
-
-.confirm-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(25, 40, 35, 0.45);
-
-    backdrop-filter: blur(5px);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    z-index: 10000;
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transition:
-        opacity 0.25s ease,
-        visibility 0.25s ease;
-}
-
-.confirm-overlay.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.confirm-modal {
-    width: 100%;
-    max-width: 430px;
-
-    background: white;
-
-    border-radius: 22px;
-
-    padding: 32px;
-
-    text-align: center;
-
-    box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.20);
-
-    transform:
-        translateY(20px)
-        scale(0.96);
-
-    transition:
-        transform 0.25s ease;
-}
-
-.confirm-overlay.show .confirm-modal {
-    transform:
-        translateY(0)
-        scale(1);
-}
-
-.confirm-icon {
-    width: 68px;
-    height: 68px;
-
-    margin: 0 auto 18px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 30px;
-
-    font-weight: 600;
-}
-
-.confirm-icon.delete-icon {
-    background: #fdeceb;
-    color: #e74c3c;
-}
-
-.confirm-modal h3 {
-    font-size: 21px;
-
-    color: #243746;
-
-    margin-bottom: 10px;
-}
-
-.confirm-modal p {
-    color: #6b777f;
-
-    font-size: 14px;
-
-    line-height: 1.6;
-
-    margin-bottom: 25px;
-}
-
-.confirm-actions {
-    display: flex;
-
-    gap: 10px;
-}
-
-.confirm-actions button {
-    flex: 1;
-
-    border: none;
-
-    padding: 12px 18px;
-
-    border-radius: 10px;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.confirm-no {
-    background: #f1f4f3;
-
-    color: #52616b;
-}
-
-.confirm-no:hover {
-    background: #e5eae8;
-}
-
-.confirm-yes.delete-confirm {
-    background: #e74c3c;
-
-    color: white;
-}
-
-.confirm-yes.delete-confirm:hover {
-    background: #c0392b;
-}
-
-.confirm-actions button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
-
-    .confirm-modal {
-        padding: 25px 20px;
-
-        border-radius: 18px;
-    }
-
-    .confirm-modal h3 {
-        font-size: 19px;
-    }
-
-    .confirm-actions {
-        flex-direction: column;
-    }
-
-    .success-popup {
-        left: 15px;
-        right: 15px;
-
-        top: 15px;
-
-        min-width: 0;
-
-        width: auto;
-    }
-
-}
-
+        }
 
     </style>
 
@@ -792,9 +1019,9 @@ $readMessages = count(
 <body>
 
 
-<!-- =====================================================
+<!-- =========================================================
      NAVBAR
-===================================================== -->
+========================================================= -->
 
 <nav class="admin-nav">
 
@@ -805,32 +1032,28 @@ $readMessages = count(
 
     <div class="nav-links">
 
-        <a href="index.php">
-            Bookings
-        </a>
+        <a href="index.php">Bookings</a>
+<a href="messages.php" class="active">Messages</a>
+<a href="news.php">News</a>
+<a href="comments.php">Comments</a>
+<a href="login.php?logout=1">Logout</a>
 
-        <a
-            href="messages.php"
-            class="active"
-        >
-            Messages
-        </a>
-
-        <a href="login.php?logout=1">
-            Logout
-        </a>
 
     </div>
 
 </nav>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MAIN
-===================================================== -->
+========================================================= -->
 
 <main class="admin-container">
 
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
     <div class="admin-header">
 
@@ -845,20 +1068,29 @@ $readMessages = count(
     </div>
 
 
+    <!-- =====================================================
+         ERROR
+    ====================================================== -->
+
     <?php if (isset($error)): ?>
 
         <div class="error-message">
+
             <?= htmlspecialchars($error) ?>
+
         </div>
 
     <?php endif; ?>
 
 
-    <!-- =================================================
-         STATS
-    ================================================== -->
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
 
     <div class="stats-grid">
+
+
+        <!-- TOTAL -->
 
         <div class="stat-card">
 
@@ -873,6 +1105,8 @@ $readMessages = count(
         </div>
 
 
+        <!-- UNREAD -->
+
         <div class="stat-card">
 
             <span>
@@ -886,6 +1120,8 @@ $readMessages = count(
         </div>
 
 
+        <!-- READ -->
+
         <div class="stat-card">
 
             <span>
@@ -898,12 +1134,13 @@ $readMessages = count(
 
         </div>
 
+
     </div>
 
 
-    <!-- =================================================
-         MESSAGE LIST
-    ================================================== -->
+    <!-- =====================================================
+         ALL MESSAGES
+    ====================================================== -->
 
     <div class="messages-card">
 
@@ -914,6 +1151,9 @@ $readMessages = count(
 
         <?php if (empty($messages)): ?>
 
+
+            <!-- EMPTY -->
+
             <div class="empty-message">
 
                 <p>
@@ -921,6 +1161,7 @@ $readMessages = count(
                 </p>
 
             </div>
+
 
         <?php else: ?>
 
@@ -931,10 +1172,18 @@ $readMessages = count(
                 <?php foreach ($messages as $message): ?>
 
 
+                    <!-- =================================================
+                         MESSAGE ITEM
+                    ================================================== -->
+
                     <div
                         class="message-item <?= $message['status'] === 'unread' ? 'unread' : '' ?>"
                     >
 
+
+                        <!-- =================================================
+                             TOP
+                        ================================================== -->
 
                         <div class="message-top">
 
@@ -943,17 +1192,24 @@ $readMessages = count(
 
                                 <strong>
                                     <?= htmlspecialchars(
-                                        $message['name']
+                                        $message['name'],
+                                        ENT_QUOTES,
+                                        'UTF-8'
                                     ) ?>
                                 </strong>
 
+
                                 <a
                                     href="mailto:<?= htmlspecialchars(
-                                        $message['email']
+                                        $message['email'],
+                                        ENT_QUOTES,
+                                        'UTF-8'
                                     ) ?>"
                                 >
                                     <?= htmlspecialchars(
-                                        $message['email']
+                                        $message['email'],
+                                        ENT_QUOTES,
+                                        'UTF-8'
                                     ) ?>
                                 </a>
 
@@ -963,7 +1219,9 @@ $readMessages = count(
                             <div class="message-date">
 
                                 <?= htmlspecialchars(
-                                    $message['created_at']
+                                    $message['created_at'],
+                                    ENT_QUOTES,
+                                    'UTF-8'
                                 ) ?>
 
                             </div>
@@ -972,35 +1230,57 @@ $readMessages = count(
                         </div>
 
 
+                        <!-- =================================================
+                             MESSAGE
+                        ================================================== -->
+
                         <div class="message-content">
 
                             <?= htmlspecialchars(
-                                $message['message']
+                                $message['message'],
+                                ENT_QUOTES,
+                                'UTF-8'
                             ) ?>
 
                         </div>
 
 
+                        <!-- =================================================
+                             BOTTOM
+                        ================================================== -->
+
                         <div class="message-bottom">
 
 
+                            <!-- STATUS -->
+
                             <span
                                 class="status <?= htmlspecialchars(
-                                    $message['status']
+                                    $message['status'],
+                                    ENT_QUOTES,
+                                    'UTF-8'
                                 ) ?>"
                             >
 
                                 <?= ucfirst(
                                     htmlspecialchars(
-                                        $message['status']
+                                        $message['status'],
+                                        ENT_QUOTES,
+                                        'UTF-8'
                                     )
                                 ) ?>
 
                             </span>
 
 
+                            <!-- ACTIONS -->
+
                             <div class="actions">
 
+
+                                <!-- =========================================
+                                     MARK AS READ
+                                ========================================== -->
 
                                 <?php if (
                                     $message['status'] === 'unread'
@@ -1015,9 +1295,12 @@ $readMessages = count(
                                             type="hidden"
                                             name="id"
                                             value="<?= htmlspecialchars(
-                                                $message['id']
+                                                $message['id'],
+                                                ENT_QUOTES,
+                                                'UTF-8'
                                             ) ?>"
                                         >
+
 
                                         <button
                                             type="submit"
@@ -1031,20 +1314,26 @@ $readMessages = count(
                                 <?php endif; ?>
 
 
-                              <form
-    action="delete_message.php"
-    method="POST"
->
+                                <!-- =========================================
+                                     DELETE
+                                ========================================== -->
 
-                                
+                                <form
+                                    action="delete_message.php"
+                                    method="POST"
+                                    class="delete-form"
+                                >
 
                                     <input
                                         type="hidden"
                                         name="id"
                                         value="<?= htmlspecialchars(
-                                            $message['id']
+                                            $message['id'],
+                                            ENT_QUOTES,
+                                            'UTF-8'
                                         ) ?>"
                                     >
+
 
                                     <button
                                         type="submit"
@@ -1057,6 +1346,7 @@ $readMessages = count(
 
 
                             </div>
+
 
                         </div>
 
@@ -1077,6 +1367,8 @@ $readMessages = count(
 
 
 </main>
+
+
 <!-- =========================================================
      SUCCESS POPUP
 ========================================================= -->
@@ -1084,17 +1376,21 @@ $readMessages = count(
 <div
     id="successPopup"
     class="success-popup"
+    role="status"
+    aria-live="polite"
 >
 
     <div class="success-icon">
         ✓
     </div>
 
+
     <div>
 
         <strong id="successTitle">
             Success
         </strong>
+
 
         <span id="successMessage">
             Action completed successfully.
@@ -1112,13 +1408,19 @@ $readMessages = count(
 <div
     id="confirmOverlay"
     class="confirm-overlay"
+    aria-hidden="true"
 >
+
 
     <div
         class="confirm-modal"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="confirmTitle"
     >
+
+
+        <!-- ICON -->
 
         <div
             class="confirm-icon delete-icon"
@@ -1126,16 +1428,26 @@ $readMessages = count(
             ×
         </div>
 
-        <h3>
+
+        <!-- TITLE -->
+
+        <h3 id="confirmTitle">
             Delete this message?
         </h3>
 
-        <p>
+
+        <!-- TEXT -->
+
+        <p id="confirmText">
             This action will permanently remove this message.
             This cannot be undone.
         </p>
 
+
+        <!-- BUTTONS -->
+
         <div class="confirm-actions">
+
 
             <button
                 type="button"
@@ -1145,6 +1457,7 @@ $readMessages = count(
                 No, go back
             </button>
 
+
             <button
                 type="button"
                 id="confirmYes"
@@ -1153,19 +1466,27 @@ $readMessages = count(
                 Yes, delete message
             </button>
 
+
         </div>
+
 
     </div>
 
 </div>
 
 
-</body>
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-</html>
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
+
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
 
     const confirmOverlay =
         document.getElementById('confirmOverlay');
@@ -1186,16 +1507,27 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('successMessage');
 
 
-    let selectedForm = null;
+    /*
+    |--------------------------------------------------------------------------
+    | SELECTED FORM
+    |--------------------------------------------------------------------------
+    */
 
-    let popupTimeout = null;
+    let selectedForm = null;
 
 
     /*
     |--------------------------------------------------------------------------
-    | SUCCESS POPUP
+    | POPUP TIMER
     |--------------------------------------------------------------------------
     */
+
+    let popupTimeout = null;
+
+
+    /* =========================================================
+       SUCCESS POPUP
+    ========================================================= */
 
     function showSuccess(title, message) {
 
@@ -1205,46 +1537,79 @@ document.addEventListener('DOMContentLoaded', function () {
 
         successPopup.classList.add('show');
 
+
         clearTimeout(popupTimeout);
+
 
         popupTimeout = setTimeout(function () {
 
             successPopup.classList.remove('show');
 
         }, 4000);
+
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | OPEN MODAL
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       OPEN CONFIRMATION MODAL
+    ========================================================= */
 
     function openConfirmModal(form) {
 
         selectedForm = form;
 
+
         confirmOverlay.classList.add('show');
 
+        confirmOverlay.setAttribute(
+            'aria-hidden',
+            'false'
+        );
+
+
         document.body.style.overflow = 'hidden';
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Focus confirm button
+        |--------------------------------------------------------------------------
+        */
+
+        setTimeout(function () {
+
+            confirmYes.focus();
+
+        }, 100);
 
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | CLOSE MODAL
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       CLOSE CONFIRMATION MODAL
+    ========================================================= */
 
     function closeConfirmModal() {
 
         confirmOverlay.classList.remove('show');
 
+        confirmOverlay.setAttribute(
+            'aria-hidden',
+            'true'
+        );
+
+
         document.body.style.overflow = '';
 
+
         selectedForm = null;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset buttons
+        |--------------------------------------------------------------------------
+        */
 
         confirmYes.disabled = false;
 
@@ -1256,21 +1621,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | DELETE FORMS
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       DELETE FORMS
+    ========================================================= */
 
     document
-        .querySelectorAll('form[action="delete_message.php"]')
+        .querySelectorAll('.delete-form')
         .forEach(function (form) {
 
             form.addEventListener(
                 'submit',
                 function (event) {
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Stop normal form submit
+                    |--------------------------------------------------------------------------
+                    */
+
                     event.preventDefault();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Open confirmation modal
+                    |--------------------------------------------------------------------------
+                    */
 
                     openConfirmModal(form);
 
@@ -1280,11 +1656,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | NO
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       NO / GO BACK
+    ========================================================= */
 
     confirmNo.addEventListener(
         'click',
@@ -1296,17 +1670,17 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | CLICK OUTSIDE
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       CLICK OUTSIDE MODAL
+    ========================================================= */
 
     confirmOverlay.addEventListener(
         'click',
         function (event) {
 
-            if (event.target === confirmOverlay) {
+            if (
+                event.target === confirmOverlay
+            ) {
 
                 closeConfirmModal();
 
@@ -1316,11 +1690,9 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ESC
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       ESC KEY
+    ========================================================= */
 
     document.addEventListener(
         'keydown',
@@ -1339,26 +1711,42 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | CONFIRM DELETE
-    |--------------------------------------------------------------------------
-    */
+    /* =========================================================
+       CONFIRM DELETE
+    ========================================================= */
 
     confirmYes.addEventListener(
         'click',
         async function () {
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Check selected form
+            |--------------------------------------------------------------------------
+            */
+
             if (!selectedForm) {
+
                 return;
+
             }
 
 
-            const form = selectedForm;
+            const form =
+                selectedForm;
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Disable buttons
+            |--------------------------------------------------------------------------
+            */
 
             confirmYes.disabled = true;
+
             confirmNo.disabled = true;
+
 
             confirmYes.textContent =
                 'Deleting...';
@@ -1366,19 +1754,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
             try {
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Form data
+                |--------------------------------------------------------------------------
+                */
+
                 const formData =
                     new FormData(form);
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Send DELETE request
+                |--------------------------------------------------------------------------
+                */
 
                 const response =
                     await fetch(
                         form.action,
                         {
                             method: 'POST',
-                            body: formData
+
+                            body: formData,
+
+                            headers: {
+                                'X-Requested-With':
+                                    'XMLHttpRequest'
+                            }
                         }
                     );
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Check HTTP response
+                |--------------------------------------------------------------------------
+                */
 
                 if (!response.ok) {
 
@@ -1389,14 +1802,81 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Try to read JSON
+                |--------------------------------------------------------------------------
+                */
+
+                let result = null;
+
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | If delete_message.php does not return JSON,
+                    | a successful HTTP response is still considered success.
+                    |--------------------------------------------------------------------------
+                    */
+
+                    result = {
+                        success: true
+                    };
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Check backend result
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    result &&
+                    result.success === false
+                ) {
+
+                    throw new Error(
+                        result.message ||
+                        'The message could not be deleted.'
+                    );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Close modal
+                |--------------------------------------------------------------------------
+                */
+
                 closeConfirmModal();
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Show success popup
+                |--------------------------------------------------------------------------
+                */
 
                 showSuccess(
                     'Message deleted',
                     'The message has been permanently removed.'
                 );
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Reload page
+                |--------------------------------------------------------------------------
+                */
 
                 setTimeout(function () {
 
@@ -1407,16 +1887,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
             } catch (error) {
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Console error
+                |--------------------------------------------------------------------------
+                */
+
                 console.error(
                     'Delete message error:',
                     error
                 );
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Close modal
+                |--------------------------------------------------------------------------
+                */
+
                 closeConfirmModal();
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Error message
+                |--------------------------------------------------------------------------
+                */
+
                 alert(
+                    error.message ||
                     'Something went wrong. Please try again.'
                 );
 
@@ -1430,3 +1930,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
 
+
+</body>
+
+</html>
