@@ -1035,7 +1035,7 @@ $readMessages = count(
         <a href="index.php">Bookings</a>
 <a href="messages.php" class="active">Messages</a>
 <a href="news.php">News</a>
-<a href="comments.php">Comments</a>
+<a href="news_comments.php">Comments</a>
 <a href="login.php?logout=1">Logout</a>
 
 

@@ -987,7 +987,7 @@ if ($errorType === 'status') {
      <a href="index.php">Bookings</a>
 <a href="messages.php">Messages</a>
 <a href="news.php" class="active">News</a>
-<a href="comments.php">Comments</a>
+<a href="news_comments.php">Comments</a>
 <a href="login.php?logout=1">Logout</a>
 
     </div>
