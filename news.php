@@ -402,41 +402,6 @@ try {
                 Booking
             </a>
         </li>
-        
-        <li class="language-switcher">
-
-            <button
-                type="button"
-                id="languageButton"
-                class="language-button"
-            >
-                🇬🇧 EN
-            </button>
-
-            <div
-                id="languageMenu"
-                class="language-menu"
-            >
-
-                <button
-                    type="button"
-                    class="language-option"
-                    data-lang="en"
-                >
-                    🇬🇧 English
-                </button>
-
-                <button
-                    type="button"
-                    class="language-option"
-                    data-lang="sq"
-                >
-                    🇦🇱 Shqip
-                </button>
-
-            </div>
-
-        </li>
 
     </ul>
 
@@ -765,10 +730,6 @@ document.addEventListener(
 );
 
 </script>
-<div id="google_translate_element"></div>
-
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script src="language.js"></script>
 
 
 </body>
